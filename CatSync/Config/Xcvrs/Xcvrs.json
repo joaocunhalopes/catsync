@@ -1,0 +1,50 @@
+{
+  "Xcvrs": [
+    {
+      "Id": 1,
+      "Manufacturer": "KENWOOD",
+      "Model": "TS-590S",
+      "Protocol": "KSI",
+      "Timeout": 0,
+      "Commands": {
+        "Read": "FA;",
+        "ReadPrefix": "FA",
+        "ReadSufix": ";",
+        "Write": "FA00000000000;",
+        "WritePrefix": "FA",
+        "WriteReplySufix": ";"
+      },
+      "PortSettings": {
+        "PortName": "COM8",
+        "BaudRate": 115200,
+        "Parity": "None",
+        "DataBits": 8,
+        "StopBits": "One",
+        "Handshake": "RequestToSend"
+      }
+    },
+    {
+      "Id": 2,
+      "Manufacturer": "Xiegu",
+      "Model": "X6100",
+      "Protocol": "CIV",
+      "Timeout": 100,
+      "Commands": {
+        "Read": "FEFEA4E003FD",
+        "ReadPrefix": "FEFEE0A403",
+        "ReadSufix": "FD",
+        "Write": "FEFEA4E025000000000000FD",
+        "WritePrefix": "FEFEA4E025",
+        "WriteSufix": "FD"
+      },
+      "PortSettings": {
+        "PortName": "COM9",
+        "BaudRate": 19200,
+        "Parity": "None",
+        "DataBits": 8,
+        "StopBits": "One",
+        "Handshake": "None"
+      }
+    }
+  ]
+}

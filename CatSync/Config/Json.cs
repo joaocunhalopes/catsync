@@ -2,19 +2,19 @@
 
 namespace Config
 {
-    public class XcvrsList
+    public class XcvrsConfig
     {
         public List<Xcvr> Xcvrs { get; set; } = new();
     }
 
-    public class Xcvr
+    public class Xcvr   
     {
         public int Id { get; set; }
         public string Manufacturer { get; set; } = string.Empty;
         public string Model { get; set; } = string.Empty;
         public string Protocol { get; set; } = string.Empty;
         public int Timeout { get; set; }
-        public Commands Commands { get; set; } = new(); 
+        public Commands Commands { get; set; } = new();
         public PortSettings PortSettings { get; set; } = new();
         public int CurrentFrequency { get; set; } = 0;
         public int PreviousFrequency { get; set; } = 0;

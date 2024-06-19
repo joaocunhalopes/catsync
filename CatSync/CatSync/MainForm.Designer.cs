@@ -960,11 +960,11 @@
             // label66
             // 
             label66.AutoSize = true;
-            label66.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label66.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label66.ImageAlign = ContentAlignment.BottomLeft;
-            label66.Location = new Point(26, 25);
+            label66.Location = new Point(16, 23);
             label66.Name = "label66";
-            label66.Size = new Size(66, 21);
+            label66.Size = new Size(76, 25);
             label66.TabIndex = 0;
             label66.Text = "label66";
             // 
@@ -981,10 +981,10 @@
             // label65
             // 
             label65.AutoSize = true;
-            label65.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label65.Location = new Point(26, 28);
+            label65.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label65.Location = new Point(16, 26);
             label65.Name = "label65";
-            label65.Size = new Size(66, 21);
+            label65.Size = new Size(76, 25);
             label65.TabIndex = 0;
             label65.Text = "label65";
             // 

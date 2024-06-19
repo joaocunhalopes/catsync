@@ -2,10 +2,9 @@
 {
     public static class Control
     {
-        public static XcvrsList ReadXcvrsConfig()
+        public static List<Xcvr> ReadConfig()
         {
             return Parser.ParseJson();
-            //Parser.LogXcvrList();
         }
     }
 }

@@ -1,4 +1,4 @@
-namespace CatSync
+    namespace CatSync
 {
     internal static class Program
     {
@@ -8,6 +8,12 @@ namespace CatSync
         [STAThread]
         static void Main()
         {
+            // Show the console window if needed
+            //ConsoleManager.ShowConsole();
+
+            // Initialize logging
+            Util.Log.Information("Starting CatSync.");
+
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();

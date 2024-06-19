@@ -1,22 +1,32 @@
-﻿namespace Xcvr
+﻿using Serilog;
+
+namespace Xcvr
 {
     public static class Control
     {
-        internal static Config.XcvrsList XcvrsList = new();
+        private static List<Config.Xcvr> _xcvrs = new();
 
-        public static void ReadXcvrsConfig()
+        public static List<Config.Xcvr> Xcvrs
         {
-            XcvrsList = Config.Control.ReadXcvrsConfig();
+            get { return _xcvrs; }
+            private set { _xcvrs = value; }
         }
 
-        public static Config.XcvrsList GetXcvrsList()
+        public static void Config()
         {
-            return XcvrsList;
+            try
+            {
+                Xcvrs = global::Config.Control.ReadConfig();
+            }
+            catch (Exception ex)
+            {
+                throw new ConfigException(ex.Message);
+            }
         }
 
-        public static void OpenXcvrsPorts()
+        public static void OpenPort(Config.Xcvr xcvr)
         {
-            foreach (var xcvr in XcvrsList.Xcvrs)
+            try
             {
                 System.IO.Ports.SerialPort port = new System.IO.Ports.SerialPort
                 {
@@ -28,50 +38,56 @@
                     Handshake = Enum.Parse<System.IO.Ports.Handshake>(xcvr.PortSettings.Handshake, true)
                 };
                 xcvr.SerialPort = port;
-                Serial.Control.OpenPort(xcvr.SerialPort);
+
+                Serial.Control.PortOpen(xcvr.SerialPort);
+            }
+            catch (Exception ex)
+            {
+                throw new OpenPortException(ex.Message);
             }
         }
 
-        public static void OpenXcvrPort(Config.Xcvr xcvr)
+        public static void ReadFrequency(Config.Xcvr xcvr)
         {
-            Serial.Control.OpenPort(xcvr.SerialPort);
-        }
-
-        public static void ReadXcvrFrequency(Config.Xcvr xcvr)
-        {
-            int frequency = CAT.Control.ReadFrequency(xcvr);
-            xcvr.PreviousFrequency = xcvr.CurrentFrequency;
-            xcvr.CurrentFrequency = frequency;
+            try
+            {
+                int frequency = CAT.Control.ReadFrequency(xcvr);
+                xcvr.PreviousFrequency = xcvr.CurrentFrequency;
+                xcvr.CurrentFrequency = frequency;
+            }
+            catch (Exception ex)
+            {
+                throw new ReadFrequencyException(ex.Message);
+            }
         }
 
         public static void EqualizeFrequencies()
         {
-            if (XcvrsList.Xcvrs[0].CurrentFrequency != XcvrsList.Xcvrs[1].CurrentFrequency)
+            if (Xcvrs[0].CurrentFrequency != Xcvrs[1].CurrentFrequency)
             {
-                if (XcvrsList.Xcvrs[0].CurrentFrequency != XcvrsList.Xcvrs[0].PreviousFrequency)
+                if (Xcvrs[0].CurrentFrequency != Xcvrs[0].PreviousFrequency)
                 {
-                    CAT.Control.WriteFrequency(XcvrsList.Xcvrs[1], XcvrsList.Xcvrs[0].CurrentFrequency);
-                    XcvrsList.Xcvrs[1].CurrentFrequency = XcvrsList.Xcvrs[0].CurrentFrequency;
+                    CAT.Control.WriteFrequency(Xcvrs[1], Xcvrs[0].CurrentFrequency);
+                    Xcvrs[1].CurrentFrequency = Xcvrs[0].CurrentFrequency;
                 }
-                else if (XcvrsList.Xcvrs[1].CurrentFrequency != XcvrsList.Xcvrs[1].PreviousFrequency)
+                else if (Xcvrs[1].CurrentFrequency != Xcvrs[1].PreviousFrequency)
                 {
-                    CAT.Control.WriteFrequency(XcvrsList.Xcvrs[0], XcvrsList.Xcvrs[1].CurrentFrequency);
-                    XcvrsList.Xcvrs[0].CurrentFrequency = XcvrsList.Xcvrs[1].CurrentFrequency;
+                    CAT.Control.WriteFrequency(Xcvrs[0], Xcvrs[1].CurrentFrequency);
+                    Xcvrs[0].CurrentFrequency = Xcvrs[1].CurrentFrequency;
                 }
             }
         }
 
-        public static void CloseXcvrsPorts()
+        public static void ClosePort(Config.Xcvr xcvr)
         {
-            foreach (var xcvr in XcvrsList.Xcvrs)
+            try
             {
-                Serial.Control.ClosePort(xcvr.SerialPort);
+                Serial.Control.PortClose(xcvr.SerialPort);
             }
-        }
-
-        public static void CloseXcvrPort(Config.Xcvr xcvr)
-        {
-            Serial.Control.ClosePort(xcvr.SerialPort);
+            catch (Exception ex)
+            {
+                throw new OpenPortException(ex.Message);
+            }
         }
     }
 }

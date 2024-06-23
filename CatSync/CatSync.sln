@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatSync", "CatSync\CatSync.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xcvr", "Xcvr\Xcvr.csproj", "{30204E8E-4177-4D3C-956C-4B91B75672D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Config", "Config\Config.csproj", "{4BC2F096-5D8A-415E-851C-21055415E7EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Config", "Config\Config.csproj", "{4BC2F096-5D8A-415E-851C-21055415E7EE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serial", "Serial\Serial.csproj", "{F051A17C-9695-491A-A866-6CFCDA94C06F}"
 EndProject

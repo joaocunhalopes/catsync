@@ -16,11 +16,12 @@ namespace Config
         public int Timeout { get; set; }
         public Commands Commands { get; set; } = new();
         public PortSettings PortSettings { get; set; } = new();
-        public int CurrentFrequency { get; set; } = 0;
-        public int PreviousFrequency { get; set; } = 0;
 
         [JsonIgnore]
         public System.IO.Ports.SerialPort SerialPort { get; set; } = new();
+
+        [JsonIgnore]
+        public Frequency Frequency { get; set; } = new();
     }
 
     public class Commands
@@ -42,5 +43,14 @@ namespace Config
         public int DataBits { get; set; }
         public string StopBits { get; set; } = string.Empty;
         public string Handshake { get; set; } = string.Empty;
+    }
+
+    public class Frequency
+    {
+        public bool Lead { get; set; } = false;
+        public bool Follow { get; set; } = false;
+        public bool Release { get; set; } = false;
+        public int Current { get; set; } = 0;
+        public int Offset { get; set; } = 0;
     }
 }

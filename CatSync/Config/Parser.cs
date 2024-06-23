@@ -39,7 +39,7 @@ namespace Config
             }
             catch (Exception ex)
             {
-                Util.Log.Warning("Could not parse os log Xcvrs.json.");
+                Util.Log.Warning("Could not parse or log Xcvrs.json.");
                 Util.Log.Error(ex.Message);
                 throw;
             }

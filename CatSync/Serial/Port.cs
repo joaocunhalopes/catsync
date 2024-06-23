@@ -142,6 +142,38 @@ namespace Serial
             }
         }
 
+        internal static void Dispose(System.IO.Ports.SerialPort port)
+        {
+            try
+            {
+                if (port.IsOpen)
+                {
+                    port.Close();
+                    port.Dispose();
+                    Log.Information($"Closed port {port.PortName}.");
+                }
+                else
+                {
+                    Log.Warning($"Port {port.PortName} is already closed.");
+                }
+            }
+            catch (IOException ex)
+            {
+                Log.Error(ex.Message);
+                Log.Warning($"I/O error closing port {port.PortName}.");
+            }
+            catch (InvalidOperationException ex)
+            {
+                Log.Error(ex.Message);
+                Log.Warning($"Invalid operation on port {port.PortName}.");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+                Log.Warning($"Unexpected error disposing port {port.PortName}.");
+            }
+        }
+
         private static byte[] ReadBytes(System.IO.Ports.SerialPort serialPort)
         {
             try

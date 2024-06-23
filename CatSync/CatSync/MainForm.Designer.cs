@@ -45,21 +45,6 @@
             label13 = new Label();
             label12 = new Label();
             label11 = new Label();
-            groupBox3 = new GroupBox();
-            label26 = new Label();
-            label25 = new Label();
-            label24 = new Label();
-            label23 = new Label();
-            label22 = new Label();
-            label21 = new Label();
-            button2 = new Button();
-            button1 = new Button();
-            label10 = new Label();
-            label9 = new Label();
-            label8 = new Label();
-            label7 = new Label();
-            label6 = new Label();
-            label5 = new Label();
             groupBox2 = new GroupBox();
             label20 = new Label();
             label19 = new Label();
@@ -69,6 +54,22 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
+            groupBox3 = new GroupBox();
+            label26 = new Label();
+            label25 = new Label();
+            label24 = new Label();
+            button2 = new Button();
+            button1 = new Button();
+            label23 = new Label();
+            label22 = new Label();
+            label21 = new Label();
+            label10 = new Label();
+            label9 = new Label();
+            label8 = new Label();
+            label7 = new Label();
+            label6 = new Label();
+            label5 = new Label();
+            label65 = new Label();
             groupBox5 = new GroupBox();
             groupBox6 = new GroupBox();
             label33 = new Label();
@@ -107,33 +108,36 @@
             label62 = new Label();
             label63 = new Label();
             label64 = new Label();
-            groupBox9 = new GroupBox();
-            button6 = new Button();
-            button5 = new Button();
-            groupBox11 = new GroupBox();
             label66 = new Label();
+            groupBox11 = new GroupBox();
+            button10 = new Button();
+            button9 = new Button();
+            button8 = new Button();
             groupBox10 = new GroupBox();
-            label65 = new Label();
+            button7 = new Button();
+            groupBox12 = new GroupBox();
+            button5 = new Button();
+            button6 = new Button();
             menuStrip1.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox4.SuspendLayout();
-            groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
             groupBox5.SuspendLayout();
             groupBox6.SuspendLayout();
             groupBox7.SuspendLayout();
             groupBox8.SuspendLayout();
-            groupBox9.SuspendLayout();
             groupBox11.SuspendLayout();
             groupBox10.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
+            menuStrip1.BackColor = SystemColors.ControlDarkDark;
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 24);
+            menuStrip1.Size = new Size(784, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -149,16 +153,17 @@
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             exitToolStripMenuItem.Size = new Size(93, 22);
             exitToolStripMenuItem.Text = "Exit";
+            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
             // groupBox1
             // 
             groupBox1.Controls.Add(groupBox4);
-            groupBox1.Controls.Add(groupBox3);
             groupBox1.Controls.Add(groupBox2);
+            groupBox1.Controls.Add(groupBox3);
             groupBox1.Font = new Font("Segoe UI", 9F);
-            groupBox1.Location = new Point(12, 34);
+            groupBox1.Location = new Point(12, 35);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(280, 396);
+            groupBox1.Size = new Size(255, 363);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Transceiver/Receiver #1";
@@ -177,9 +182,9 @@
             groupBox4.Controls.Add(label13);
             groupBox4.Controls.Add(label12);
             groupBox4.Controls.Add(label11);
-            groupBox4.Location = new Point(12, 262);
+            groupBox4.Location = new Point(6, 237);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(252, 115);
+            groupBox4.Size = new Size(243, 115);
             groupBox4.TabIndex = 2;
             groupBox4.TabStop = false;
             groupBox4.Text = "Commands";
@@ -292,157 +297,6 @@
             label11.TabIndex = 0;
             label11.Text = "Read:";
             // 
-            // groupBox3
-            // 
-            groupBox3.Controls.Add(label26);
-            groupBox3.Controls.Add(label25);
-            groupBox3.Controls.Add(label24);
-            groupBox3.Controls.Add(label23);
-            groupBox3.Controls.Add(label22);
-            groupBox3.Controls.Add(label21);
-            groupBox3.Controls.Add(button2);
-            groupBox3.Controls.Add(button1);
-            groupBox3.Controls.Add(label10);
-            groupBox3.Controls.Add(label9);
-            groupBox3.Controls.Add(label8);
-            groupBox3.Controls.Add(label7);
-            groupBox3.Controls.Add(label6);
-            groupBox3.Controls.Add(label5);
-            groupBox3.Location = new Point(12, 112);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(252, 144);
-            groupBox3.TabIndex = 1;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Comunications";
-            // 
-            // label26
-            // 
-            label26.AutoSize = true;
-            label26.Location = new Point(81, 94);
-            label26.Name = "label26";
-            label26.Size = new Size(44, 15);
-            label26.TabIndex = 13;
-            label26.Text = "label26";
-            // 
-            // label25
-            // 
-            label25.AutoSize = true;
-            label25.Location = new Point(65, 79);
-            label25.Name = "label25";
-            label25.Size = new Size(44, 15);
-            label25.TabIndex = 12;
-            label25.Text = "label25";
-            // 
-            // label24
-            // 
-            label24.AutoSize = true;
-            label24.Location = new Point(65, 64);
-            label24.Name = "label24";
-            label24.Size = new Size(44, 15);
-            label24.TabIndex = 11;
-            label24.Text = "label24";
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Location = new Point(52, 49);
-            label23.Name = "label23";
-            label23.Size = new Size(44, 15);
-            label23.TabIndex = 10;
-            label23.Text = "label23";
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.Location = new Point(72, 34);
-            label22.Name = "label22";
-            label22.Size = new Size(44, 15);
-            label22.TabIndex = 9;
-            label22.Text = "label22";
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Location = new Point(44, 19);
-            label21.Name = "label21";
-            label21.Size = new Size(44, 15);
-            label21.TabIndex = 8;
-            label21.Text = "label21";
-            // 
-            // button2
-            // 
-            button2.Location = new Point(87, 112);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 7;
-            button2.Text = "Disconnect";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(6, 112);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 6;
-            button1.Text = "Connect";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Location = new Point(6, 94);
-            label10.Name = "label10";
-            label10.Size = new Size(69, 15);
-            label10.TabIndex = 5;
-            label10.Text = "Handshake:";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(6, 79);
-            label9.Name = "label9";
-            label9.Size = new Size(53, 15);
-            label9.TabIndex = 4;
-            label9.Text = "StopBits:";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(6, 64);
-            label8.Name = "label8";
-            label8.Size = new Size(53, 15);
-            label8.TabIndex = 3;
-            label8.Text = "DataBits:";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(6, 49);
-            label7.Name = "label7";
-            label7.Size = new Size(40, 15);
-            label7.TabIndex = 2;
-            label7.Text = "Parity:";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(6, 34);
-            label6.Name = "label6";
-            label6.Size = new Size(60, 15);
-            label6.TabIndex = 1;
-            label6.Text = "BaudRate:";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(6, 19);
-            label5.Name = "label5";
-            label5.Size = new Size(32, 15);
-            label5.TabIndex = 0;
-            label5.Text = "Port:";
-            // 
             // groupBox2
             // 
             groupBox2.Controls.Add(label20);
@@ -453,9 +307,9 @@
             groupBox2.Controls.Add(label3);
             groupBox2.Controls.Add(label2);
             groupBox2.Controls.Add(label1);
-            groupBox2.Location = new Point(12, 22);
+            groupBox2.Location = new Point(6, 22);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(252, 84);
+            groupBox2.Size = new Size(243, 84);
             groupBox2.TabIndex = 0;
             groupBox2.TabStop = false;
             groupBox2.Text = "Information";
@@ -532,15 +386,177 @@
             label1.TabIndex = 0;
             label1.Text = "Manufacturer:";
             // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(label26);
+            groupBox3.Controls.Add(label25);
+            groupBox3.Controls.Add(label24);
+            groupBox3.Controls.Add(button2);
+            groupBox3.Controls.Add(button1);
+            groupBox3.Controls.Add(label23);
+            groupBox3.Controls.Add(label22);
+            groupBox3.Controls.Add(label21);
+            groupBox3.Controls.Add(label10);
+            groupBox3.Controls.Add(label9);
+            groupBox3.Controls.Add(label8);
+            groupBox3.Controls.Add(label7);
+            groupBox3.Controls.Add(label6);
+            groupBox3.Controls.Add(label5);
+            groupBox3.Location = new Point(6, 112);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(243, 119);
+            groupBox3.TabIndex = 1;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Comunications";
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Location = new Point(81, 94);
+            label26.Name = "label26";
+            label26.Size = new Size(44, 15);
+            label26.TabIndex = 13;
+            label26.Text = "label26";
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Location = new Point(65, 79);
+            label25.Name = "label25";
+            label25.Size = new Size(44, 15);
+            label25.TabIndex = 12;
+            label25.Text = "label25";
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Location = new Point(65, 64);
+            label24.Name = "label24";
+            label24.Size = new Size(44, 15);
+            label24.TabIndex = 11;
+            label24.Text = "label24";
+            // 
+            // button2
+            // 
+            button2.Location = new Point(162, 44);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 7;
+            button2.Text = "Disconnect";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(162, 15);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 6;
+            button1.Text = "Connect";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new Point(52, 49);
+            label23.Name = "label23";
+            label23.Size = new Size(44, 15);
+            label23.TabIndex = 10;
+            label23.Text = "label23";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new Point(72, 34);
+            label22.Name = "label22";
+            label22.Size = new Size(44, 15);
+            label22.TabIndex = 9;
+            label22.Text = "label22";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new Point(44, 19);
+            label21.Name = "label21";
+            label21.Size = new Size(44, 15);
+            label21.TabIndex = 8;
+            label21.Text = "label21";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(6, 94);
+            label10.Name = "label10";
+            label10.Size = new Size(69, 15);
+            label10.TabIndex = 5;
+            label10.Text = "Handshake:";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(6, 79);
+            label9.Name = "label9";
+            label9.Size = new Size(53, 15);
+            label9.TabIndex = 4;
+            label9.Text = "StopBits:";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(6, 64);
+            label8.Name = "label8";
+            label8.Size = new Size(53, 15);
+            label8.TabIndex = 3;
+            label8.Text = "DataBits:";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(6, 49);
+            label7.Name = "label7";
+            label7.Size = new Size(40, 15);
+            label7.TabIndex = 2;
+            label7.Text = "Parity:";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(6, 34);
+            label6.Name = "label6";
+            label6.Size = new Size(60, 15);
+            label6.TabIndex = 1;
+            label6.Text = "BaudRate:";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(6, 19);
+            label5.Name = "label5";
+            label5.Size = new Size(32, 15);
+            label5.TabIndex = 0;
+            label5.Text = "Port:";
+            // 
+            // label65
+            // 
+            label65.AutoSize = true;
+            label65.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label65.Location = new Point(6, 19);
+            label65.Name = "label65";
+            label65.Size = new Size(76, 25);
+            label65.TabIndex = 0;
+            label65.Text = "label65";
+            label65.TextAlign = ContentAlignment.TopCenter;
+            // 
             // groupBox5
             // 
             groupBox5.Controls.Add(groupBox6);
             groupBox5.Controls.Add(groupBox7);
             groupBox5.Controls.Add(groupBox8);
             groupBox5.Font = new Font("Segoe UI", 9F);
-            groupBox5.Location = new Point(508, 34);
+            groupBox5.Location = new Point(517, 35);
             groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(280, 396);
+            groupBox5.Size = new Size(255, 363);
             groupBox5.TabIndex = 3;
             groupBox5.TabStop = false;
             groupBox5.Text = "Transceiver/Receiver #2";
@@ -559,9 +575,9 @@
             groupBox6.Controls.Add(label42);
             groupBox6.Controls.Add(label43);
             groupBox6.Controls.Add(label44);
-            groupBox6.Location = new Point(12, 262);
+            groupBox6.Location = new Point(6, 237);
             groupBox6.Name = "groupBox6";
-            groupBox6.Size = new Size(252, 115);
+            groupBox6.Size = new Size(243, 115);
             groupBox6.TabIndex = 2;
             groupBox6.TabStop = false;
             groupBox6.Text = "Commands";
@@ -690,9 +706,9 @@
             groupBox7.Controls.Add(label54);
             groupBox7.Controls.Add(label55);
             groupBox7.Controls.Add(label56);
-            groupBox7.Location = new Point(12, 112);
+            groupBox7.Location = new Point(6, 115);
             groupBox7.Name = "groupBox7";
-            groupBox7.Size = new Size(252, 144);
+            groupBox7.Size = new Size(243, 113);
             groupBox7.TabIndex = 1;
             groupBox7.TabStop = false;
             groupBox7.Text = "Comunications";
@@ -753,7 +769,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(87, 112);
+            button3.Location = new Point(162, 45);
             button3.Name = "button3";
             button3.Size = new Size(75, 23);
             button3.TabIndex = 7;
@@ -763,7 +779,7 @@
             // 
             // button4
             // 
-            button4.Location = new Point(6, 112);
+            button4.Location = new Point(162, 16);
             button4.Name = "button4";
             button4.Size = new Size(75, 23);
             button4.TabIndex = 6;
@@ -835,9 +851,9 @@
             groupBox8.Controls.Add(label62);
             groupBox8.Controls.Add(label63);
             groupBox8.Controls.Add(label64);
-            groupBox8.Location = new Point(12, 22);
+            groupBox8.Location = new Point(6, 22);
             groupBox8.Name = "groupBox8";
-            groupBox8.Size = new Size(252, 84);
+            groupBox8.Size = new Size(243, 84);
             groupBox8.TabIndex = 0;
             groupBox8.TabStop = false;
             groupBox8.Text = "Information";
@@ -914,92 +930,127 @@
             label64.TabIndex = 0;
             label64.Text = "Manufacturer:";
             // 
-            // groupBox9
-            // 
-            groupBox9.Controls.Add(button6);
-            groupBox9.Controls.Add(button5);
-            groupBox9.Controls.Add(groupBox11);
-            groupBox9.Controls.Add(groupBox10);
-            groupBox9.Location = new Point(298, 34);
-            groupBox9.Name = "groupBox9";
-            groupBox9.Size = new Size(204, 215);
-            groupBox9.TabIndex = 4;
-            groupBox9.TabStop = false;
-            groupBox9.Text = "Frequencies";
-            // 
-            // button6
-            // 
-            button6.Location = new Point(104, 101);
-            button6.Name = "button6";
-            button6.Size = new Size(75, 23);
-            button6.TabIndex = 3;
-            button6.Text = "Stop Sync";
-            button6.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            button5.Location = new Point(23, 101);
-            button5.Name = "button5";
-            button5.Size = new Size(75, 23);
-            button5.TabIndex = 2;
-            button5.Text = "Start Sync";
-            button5.UseVisualStyleBackColor = true;
-            button5.Click += button5_Click;
-            // 
-            // groupBox11
-            // 
-            groupBox11.Controls.Add(label66);
-            groupBox11.Location = new Point(6, 130);
-            groupBox11.Name = "groupBox11";
-            groupBox11.RightToLeft = RightToLeft.No;
-            groupBox11.Size = new Size(192, 73);
-            groupBox11.TabIndex = 1;
-            groupBox11.TabStop = false;
-            groupBox11.Text = "Transceiver/Receiver #2";
-            // 
             // label66
             // 
             label66.AutoSize = true;
             label66.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label66.ImageAlign = ContentAlignment.BottomLeft;
-            label66.Location = new Point(16, 23);
+            label66.Location = new Point(7, 19);
             label66.Name = "label66";
             label66.Size = new Size(76, 25);
             label66.TabIndex = 0;
             label66.Text = "label66";
             // 
+            // groupBox11
+            // 
+            groupBox11.Controls.Add(button10);
+            groupBox11.Controls.Add(button9);
+            groupBox11.Controls.Add(button8);
+            groupBox11.Controls.Add(label66);
+            groupBox11.Location = new Point(273, 147);
+            groupBox11.Name = "groupBox11";
+            groupBox11.Size = new Size(238, 106);
+            groupBox11.TabIndex = 2;
+            groupBox11.TabStop = false;
+            groupBox11.Text = "Transceiver/Receiver #2";
+            // 
+            // button10
+            // 
+            button10.Location = new Point(157, 75);
+            button10.Name = "button10";
+            button10.Size = new Size(75, 23);
+            button10.TabIndex = 3;
+            button10.Text = "Release";
+            button10.UseVisualStyleBackColor = true;
+            button10.Click += button10_Click;
+            // 
+            // button9
+            // 
+            button9.Location = new Point(8, 77);
+            button9.Name = "button9";
+            button9.Size = new Size(75, 23);
+            button9.TabIndex = 2;
+            button9.Text = "Follow";
+            button9.UseVisualStyleBackColor = true;
+            button9.Click += button9_Click;
+            // 
+            // button8
+            // 
+            button8.Location = new Point(7, 48);
+            button8.Name = "button8";
+            button8.Size = new Size(75, 23);
+            button8.TabIndex = 1;
+            button8.Text = "Lead";
+            button8.UseVisualStyleBackColor = true;
+            button8.Click += button8_Click;
+            // 
             // groupBox10
             // 
+            groupBox10.Controls.Add(button7);
             groupBox10.Controls.Add(label65);
-            groupBox10.Location = new Point(6, 22);
+            groupBox10.Controls.Add(groupBox12);
+            groupBox10.Controls.Add(button5);
+            groupBox10.Controls.Add(button6);
+            groupBox10.Location = new Point(273, 35);
             groupBox10.Name = "groupBox10";
-            groupBox10.Size = new Size(192, 73);
-            groupBox10.TabIndex = 0;
+            groupBox10.Size = new Size(238, 106);
+            groupBox10.TabIndex = 1;
             groupBox10.TabStop = false;
             groupBox10.Text = "Transceiver/Receiver #1";
             // 
-            // label65
+            // button7
             // 
-            label65.AutoSize = true;
-            label65.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label65.Location = new Point(16, 26);
-            label65.Name = "label65";
-            label65.Size = new Size(76, 25);
-            label65.TabIndex = 0;
-            label65.Text = "label65";
+            button7.Location = new Point(157, 77);
+            button7.Name = "button7";
+            button7.Size = new Size(75, 23);
+            button7.TabIndex = 4;
+            button7.Text = "Release";
+            button7.UseVisualStyleBackColor = true;
+            button7.Click += button7_Click;
+            // 
+            // groupBox12
+            // 
+            groupBox12.Location = new Point(6, 19);
+            groupBox12.Name = "groupBox12";
+            groupBox12.Size = new Size(0, 0);
+            groupBox12.TabIndex = 1;
+            groupBox12.TabStop = false;
+            groupBox12.Text = "Frequency";
+            // 
+            // button5
+            // 
+            button5.Location = new Point(7, 48);
+            button5.Name = "button5";
+            button5.Size = new Size(75, 23);
+            button5.TabIndex = 2;
+            button5.Text = "Lead";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
+            // 
+            // button6
+            // 
+            button6.Location = new Point(7, 77);
+            button6.Name = "button6";
+            button6.Size = new Size(75, 23);
+            button6.TabIndex = 3;
+            button6.Text = "Follow";
+            button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(groupBox9);
+            BackColor = SystemColors.ControlDark;
+            ClientSize = new Size(784, 411);
+            Controls.Add(groupBox11);
+            Controls.Add(groupBox10);
             Controls.Add(groupBox5);
             Controls.Add(groupBox1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "MainForm";
-            Text = "CatSync v0.0.2-alpha";
+            Text = "CatSync v0.0.4-alpha";
             Load += MainForm_Load;
             Shown += MainForm_Shown;
             menuStrip1.ResumeLayout(false);
@@ -1007,10 +1058,10 @@
             groupBox1.ResumeLayout(false);
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
-            groupBox3.ResumeLayout(false);
-            groupBox3.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
             groupBox5.ResumeLayout(false);
             groupBox6.ResumeLayout(false);
             groupBox6.PerformLayout();
@@ -1018,7 +1069,6 @@
             groupBox7.PerformLayout();
             groupBox8.ResumeLayout(false);
             groupBox8.PerformLayout();
-            groupBox9.ResumeLayout(false);
             groupBox11.ResumeLayout(false);
             groupBox11.PerformLayout();
             groupBox10.ResumeLayout(false);
@@ -1108,12 +1158,16 @@
         private Label label62;
         private Label label63;
         private Label label64;
-        private GroupBox groupBox9;
-        private GroupBox groupBox10;
-        private GroupBox groupBox11;
         private Label label65;
-        private Button button6;
-        private Button button5;
         private Label label66;
+        private GroupBox groupBox11;
+        private GroupBox groupBox10;
+        private GroupBox groupBox12;
+        private Button button5;
+        private Button button6;
+        private Button button7;
+        private Button button10;
+        private Button button9;
+        private Button button8;
     }
 }

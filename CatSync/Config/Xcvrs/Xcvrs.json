@@ -5,14 +5,14 @@
       "Manufacturer": "KENWOOD",
       "Model": "TS-590S",
       "Protocol": "KSI",
-      "Timeout": 0,
+      "Timeout": 100,
       "Commands": {
         "Read": "FA;",
         "ReadPrefix": "FA",
         "ReadSufix": ";",
         "Write": "FA00000000000;",
         "WritePrefix": "FA",
-        "WriteReplySufix": ";"
+        "WriteSufix": ";"
       },
       "PortSettings": {
         "PortName": "COM8",
@@ -28,7 +28,7 @@
       "Manufacturer": "Xiegu",
       "Model": "X6100",
       "Protocol": "CIV",
-      "Timeout": 100,
+      "Timeout": 200,
       "Commands": {
         "Read": "FEFEA4E003FD",
         "ReadPrefix": "FEFEE0A403",

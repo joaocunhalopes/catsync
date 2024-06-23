@@ -21,5 +21,10 @@
         {
                 Port.Close(port);
         }
+
+        public static void PortDispose(System.IO.Ports.SerialPort port)
+        {
+            Port.Dispose(port);
+        }
     }
 }

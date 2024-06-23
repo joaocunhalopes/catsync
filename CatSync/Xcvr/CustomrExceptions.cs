@@ -20,4 +20,25 @@
         public ReadFrequencyException(string message) : base(message) { }
         public ReadFrequencyException(string message, Exception innerException) : base(message, innerException) { }
     }
+
+    public class WriteFrequencyException : Exception
+    {
+        public WriteFrequencyException() : base() { }
+        public WriteFrequencyException(string message) : base(message) { }
+        public WriteFrequencyException(string message, Exception innerException) : base(message, innerException) { }
+    }
+
+    public class ClosePortException : Exception
+    {
+        public ClosePortException() : base() { }
+        public ClosePortException(string message) : base(message) { }
+        public ClosePortException(string message, Exception innerException) : base(message, innerException) { }
+    }
+
+    public class DisposePortException : Exception
+    {
+        public DisposePortException() : base() { }
+        public DisposePortException(string message) : base(message) { }
+        public DisposePortException(string message, Exception innerException) : base(message, innerException) { }
+    }
 }

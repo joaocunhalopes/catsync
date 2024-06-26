@@ -8,9 +8,10 @@ The current version supports the following CAT (Computer Aided Transceiver) prot
 
 - CI-V, Communications Interface 5
 - KSI, Kenwood Serial Protocol
+- CAT, Yeasu CAT Computer Aided Transceiver)
 
-CI-V is used by ICOM and Xiegu Transceivers. KSI is used by Kenwood Transceivers.
-If there's enough interest, support for Yeasu Transceivers CAT protocol and/or support for Elecraft K3 protocol can easly be added. Please contact m if interested.
+CI-V is used by ICOM and Xiegu Transceivers. KSI is used by Kenwood Transceivers. CAT is used by Yeasu Transceivers.
+If there's enough interest, support for Elecraft K3 protocol can easly be added. Please contact m if interested.
 
 
 ## Demo
@@ -29,6 +30,7 @@ The configuration file uses the JSON format, so after any change please make sur
 
 Here's an explanation on all parameters in the config file (for one Transceiver):
 
+
 "Id": 1 for Transceiver #1, 2 for Transceiver #2. Please do not edit.
 
 "Manufacturer": Free text for your Transceiver manufacturer. Edit at will.
@@ -38,6 +40,7 @@ Here's an explanation on all parameters in the config file (for one Transceiver)
 "Protocol": This is the CAT protocol used by your Transceiver. Currently supported values are "CIV" and "KSI".
 
 "Timeout": This is the time period, in miliseconds, a Transceiver needs to process a CAT request and reply to it. Lower limit is about 100 miliseconds for most Transceivers. I sugest a value around 200 miliseconds.
+
 
 Commands:
 
@@ -69,22 +72,26 @@ PortSettings:
 "Handshake": Use the recommended stopbits for serial communication with your Transceiver. Usually this value is "RequestToSend".
 
 
+Frequency:
+
+"OffSet": The frequency offset, in Hz, imposed to the oposite transceiver.
+
+
 The provied configuration file is set to work with a KENWOOOD Model TS-590S and a Xiegu Model X6100. Adjust accordingly to fit your Transceivers/Receivers.
 
 
 ## Functionalities
 
 - Supports Transceivers/Receivers that can be CAT controlled via CI-V or KSI protocols.
-- Widely Configurable.
+- Widely Adaptable.
 - Low Latency.
 - Tested with a Kenwood TS-590S and a Xiegu X6100.
 
 
 ## Limitations
 
-- Code has scarse use of Try/Catch blocks.
-- CI-V and KSI only (at this time).
-- Does not recover from any code Exception.
+- KSI, CI-V and CAT only (at this time).
+- Configuratons are read-only and JSON based.
 
 
 ## Autores

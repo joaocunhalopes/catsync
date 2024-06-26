@@ -13,6 +13,8 @@ namespace CAT
                     return (KSI.ReadFrequency(xcvr));
                 case "CIV":
                     return (CIV.ReadFrequency(xcvr));
+                case "CAT":
+                    return (CAT.ReadFrequency(xcvr));
                 default:
                     Log.Warning("Unknown protocol in CAT Read Frequency.");
                     return frequency;
@@ -29,8 +31,11 @@ namespace CAT
                 case "CIV":
                     CIV.WriteFrequency(xcvr, currentFrequency);
                     break;
+                case "CAT":
+                    CAT.WriteFrequency(xcvr, currentFrequency);
+                    break;
                 default:
-                    Log.Warning("Unknown protocol in CAT Read Frequency.");
+                    Log.Warning("Unknown protocol in CAT Write Frequency.");
                     break;
             }
         }

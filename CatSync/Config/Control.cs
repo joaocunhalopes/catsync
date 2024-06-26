@@ -4,7 +4,9 @@
     {
         public static List<Xcvr> ReadConfig()
         {
-            return Parser.ParseJson();
+            List<Xcvr> xcvrs = Parser.ParseJson();
+            Parser.LogXcvrs(xcvrs);
+            return xcvrs;
         }
     }
 }

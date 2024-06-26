@@ -22,7 +22,6 @@ namespace Config
                     throw new ArgumentNullException(nameof(config), message);
                 }
 
-                LogXcvrs(config.Xcvrs);
                 return config.Xcvrs;
             }
             catch (FileNotFoundException ex)
@@ -39,13 +38,13 @@ namespace Config
             }
             catch (Exception ex)
             {
-                Util.Log.Warning("Could not parse or log Xcvrs.json.");
+                Util.Log.Warning("Could not parse Xcvrs.json.");
                 Util.Log.Error(ex.Message);
                 throw;
             }
         }
 
-        private static void LogXcvrs(List<Xcvr> xcvrs)
+        internal static void LogXcvrs(List<Xcvr> xcvrs)
         {
             try
             {
@@ -53,10 +52,12 @@ namespace Config
                 {
                     PortSettings portSettings = xcvr.PortSettings;
                     Commands commands = xcvr.Commands;
-                    Util.Log.Information($"Transceiver {xcvr.Id}, Manufacturer: {xcvr.Manufacturer}, Model: {xcvr.Model}, Protocol: {xcvr.Protocol}, Timeout: {xcvr.Timeout}");
+                    Frequency frequency = xcvr.Frequency;
+                    Util.Log.Information($"Transceiver: {xcvr.Id}, Manufacturer: {xcvr.Manufacturer}, Model: {xcvr.Model}, Protocol: {xcvr.Protocol}, Timeout: {xcvr.Timeout}");
                     Util.Log.Information($"Read Command: '{commands.Read}', Read Prefix: '{commands.ReadPrefix}', Read Sufix: '{commands.ReadSufix}'");
                     Util.Log.Information($"Write Command: '{commands.Write}', Write Prefix: '{commands.WritePrefix}, Write Sufix: '{commands.WriteSufix}'");
-                    Util.Log.Information($"Port {portSettings.PortName}, Baudrate: {portSettings.BaudRate}, Parity: {portSettings.Parity}, DataBits: {portSettings.DataBits}, StopBits: {portSettings.StopBits}, Handshake: {portSettings.Handshake}");
+                    Util.Log.Information($"Port: {portSettings.PortName}, Baudrate: {portSettings.BaudRate}, Parity: {portSettings.Parity}, DataBits: {portSettings.DataBits}, StopBits: {portSettings.StopBits}, Handshake: {portSettings.Handshake}");
+                    Util.Log.Information($"Offset: {frequency.Offset}");
                 }
             }
             catch (Exception ex)

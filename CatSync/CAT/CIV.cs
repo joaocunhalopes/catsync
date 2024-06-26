@@ -1,4 +1,6 @@
-﻿namespace CAT
+﻿using Serilog;
+
+namespace CAT
 {
     internal static class CIV
     {

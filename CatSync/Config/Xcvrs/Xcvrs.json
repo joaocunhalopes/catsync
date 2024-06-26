@@ -5,7 +5,7 @@
       "Manufacturer": "KENWOOD",
       "Model": "TS-590S",
       "Protocol": "KSI",
-      "Timeout": 100,
+      "Timeout": 50,
       "Commands": {
         "Read": "FA;",
         "ReadPrefix": "FA",
@@ -21,6 +21,9 @@
         "DataBits": 8,
         "StopBits": "One",
         "Handshake": "RequestToSend"
+      },
+      "Frequency": {
+        "Offset": -1000
       }
     },
     {
@@ -44,6 +47,9 @@
         "DataBits": 8,
         "StopBits": "One",
         "Handshake": "None"
+      },
+      "Frequency": {
+        "Offset": 500
       }
     }
   ]

@@ -11,7 +11,7 @@ The current version supports the following CAT (Computer Aided Transceiver) prot
 - CAT, Yeasu CAT Computer Aided Transceiver)
 
 CI-V is used by ICOM and Xiegu Transceivers. KSI is used by Kenwood Transceivers. CAT is used by Yeasu Transceivers.
-If there's enough interest, support for Elecraft K3 protocol can easly be added. Please contact m if interested.
+If there's enough interest, support for Elecraft K3 protocol can easly be added. Please contact me if interested.
 
 
 ## Demo

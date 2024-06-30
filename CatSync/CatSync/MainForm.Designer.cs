@@ -367,9 +367,9 @@
             label4.AutoSize = true;
             label4.Location = new Point(6, 64);
             label4.Name = "label4";
-            label4.Size = new Size(54, 15);
+            label4.Size = new Size(51, 15);
             label4.TabIndex = 3;
-            label4.Text = "Timeout:";
+            label4.Text = "Latency:";
             // 
             // label3
             // 
@@ -889,9 +889,9 @@
             label61.AutoSize = true;
             label61.Location = new Point(6, 64);
             label61.Name = "label61";
-            label61.Size = new Size(54, 15);
+            label61.Size = new Size(51, 15);
             label61.TabIndex = 3;
-            label61.Text = "Timeout:";
+            label61.Text = "Latency:";
             // 
             // label62
             // 
@@ -1163,7 +1163,8 @@
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "MainForm";
-            Text = "CatSync v0.0.5-alpha";
+            Text = "CatSync v0.0.6-alpha";
+            FormClosing += MainForm_FormClosing;
             Load += MainForm_Load;
             Shown += MainForm_Shown;
             menuStrip1.ResumeLayout(false);

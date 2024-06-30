@@ -53,7 +53,7 @@ namespace Config
                     PortSettings portSettings = xcvr.PortSettings;
                     Commands commands = xcvr.Commands;
                     Frequency frequency = xcvr.Frequency;
-                    Util.Log.Information($"Transceiver: {xcvr.Id}, Manufacturer: {xcvr.Manufacturer}, Model: {xcvr.Model}, Protocol: {xcvr.Protocol}, Timeout: {xcvr.Timeout}");
+                    Util.Log.Information($"Transceiver: {xcvr.Id}, Manufacturer: {xcvr.Manufacturer}, Model: {xcvr.Model}, Protocol: {xcvr.Protocol}, Latency: {xcvr.Latency}");
                     Util.Log.Information($"Read Command: '{commands.Read}', Read Prefix: '{commands.ReadPrefix}', Read Sufix: '{commands.ReadSufix}'");
                     Util.Log.Information($"Write Command: '{commands.Write}', Write Prefix: '{commands.WritePrefix}, Write Sufix: '{commands.WriteSufix}'");
                     Util.Log.Information($"Port: {portSettings.PortName}, Baudrate: {portSettings.BaudRate}, Parity: {portSettings.Parity}, DataBits: {portSettings.DataBits}, StopBits: {portSettings.StopBits}, Handshake: {portSettings.Handshake}");

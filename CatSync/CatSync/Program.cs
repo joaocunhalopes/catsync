@@ -1,4 +1,4 @@
-    namespace CatSync
+namespace CatSync
 {
     internal static class Program
     {

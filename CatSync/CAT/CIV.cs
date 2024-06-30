@@ -1,13 +1,11 @@
-﻿using Serilog;
-
-namespace CAT
+﻿namespace CAT
 {
     internal static class CIV
     {
         internal static int ReadFrequency(Config.Xcvr xcvr)
         {
             byte[] byteCommand = HexStringToByteArray(xcvr.Commands.Read);
-            byte[] buffer = Serial.Control.WriteReadToPort(xcvr.SerialPort, byteCommand, xcvr.Timeout);
+            byte[] buffer = Serial.Control.WriteReadToPort(xcvr.SerialPort, byteCommand, xcvr.Latency);
             string bufferString = ByteArrayToHexString(buffer);
             string frequencyString = FilterBuffer(bufferString, xcvr.Commands.Read, xcvr.Commands.ReadPrefix, xcvr.Commands.ReadSufix);
             return int.Parse(DecodeFrequency(frequencyString));
@@ -16,7 +14,7 @@ namespace CAT
         internal static void WriteFrequency(Config.Xcvr xcvr, int currentFrequency)
         {
             byte[] byteCommand = HexStringToByteArray(BuildCommand(xcvr.Commands.Write, currentFrequency));
-            Serial.Control.WriteToPort(xcvr.SerialPort, byteCommand, xcvr.Timeout);
+            Serial.Control.WriteToPort(xcvr.SerialPort, byteCommand, xcvr.Latency);
         }
 
         private static byte[] HexStringToByteArray(string command)
@@ -76,8 +74,8 @@ namespace CAT
         private static string BuildCommand(string updateFrequency, int currentFrequency)
         {
             string currentFrequencyString = currentFrequency.ToString().PadLeft(10, '0');
-            string frequencyStrintPrefix = updateFrequency.Substring(0, 12);
-            string frequencyStrintSufix = updateFrequency.Substring(22, 2);
+            string frequencyStrintPrefix = updateFrequency.Substring(0, 10);
+            string frequencyStrintSufix = updateFrequency.Substring(20, 2);
             string commandString = frequencyStrintPrefix + DecodeFrequency(currentFrequencyString) + frequencyStrintSufix;
             return commandString;
         }

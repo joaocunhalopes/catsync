@@ -7,14 +7,14 @@
             Port.Open(port);
         }
 
-        public static void WriteToPort(System.IO.Ports.SerialPort port, byte[] data, int timeout)
+        public static void WriteToPort(System.IO.Ports.SerialPort port, byte[] data, int latency)
         {
-            Port.Write(port, data, timeout);
+            Port.Write(port, data, latency);
         }
 
-        public static byte[] WriteReadToPort(System.IO.Ports.SerialPort port, byte[] data, int timeout)
+        public static byte[] WriteReadToPort(System.IO.Ports.SerialPort port, byte[] data, int latency)
         {
-            return Port.WriteRead(port, data, timeout);
+            return Port.WriteRead(port, data, latency);
         }
 
         public static void PortClose(System.IO.Ports.SerialPort port)

@@ -5,7 +5,7 @@
       "Manufacturer": "KENWOOD",
       "Model": "TS-590S",
       "Protocol": "KSI",
-      "Latency": 100,
+      "Latency": 50,
       "Commands": {
         "Read": "FA;",
         "ReadPrefix": "FA",
@@ -23,33 +23,33 @@
         "Handshake": "RequestToSend"
       },
       "Frequency": {
-        "Offset": -1000
+        "Offset": 0
       }
     },
     {
       "Id": 2,
-      "Manufacturer": "Xiegu",
-      "Model": "X6100",
+      "Manufacturer": "ICOM",
+      "Model": "706mk2G",
       "Protocol": "CIV",
       "Latency": 200,
       "Commands": {
-        "Read": "FEFEA4E003FD",
-        "ReadPrefix": "FEFEE0A403",
+        "Read": "FEFE58E003FD",
+        "ReadPrefix": "FEFEE05803",
         "ReadSufix": "FD",
-        "Write": "FEFEA4E0050000000000FD",
-        "WritePrefix": "FEFEE0A405",
+        "Write": "FEFE58E0050000000000FD",
+        "WritePrefix": "FEFEE05805",
         "WriteSufix": "FD"
       },
       "PortSettings": {
-        "PortName": "COM9",
-        "BaudRate": 19200,
+        "PortName": "COM12",
+        "BaudRate": 9600,
         "Parity": "None",
         "DataBits": 8,
         "StopBits": "One",
         "Handshake": "None"
       },
       "Frequency": {
-        "Offset": 500
+        "Offset": 0
       }
     }
   ]

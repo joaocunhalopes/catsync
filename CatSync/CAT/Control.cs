@@ -6,7 +6,6 @@ namespace CAT
     {
         public static int ReadFrequency(Config.Xcvr xcvr)
         {
-            int frequency = 0;
             switch (xcvr.Protocol)
             {
                 case "KSI":
@@ -17,7 +16,7 @@ namespace CAT
                     return (CAT.ReadFrequency(xcvr));
                 default:
                     Log.Warning("Unknown protocol in CAT Read Frequency.");
-                    return frequency;
+                    return 0;
             }
         }
 

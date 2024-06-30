@@ -7,10 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.IO.Ports" Version="8.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Serial\Serial.csproj" />
     <ProjectReference Include="..\Util\Util.csproj" />
   </ItemGroup>
 

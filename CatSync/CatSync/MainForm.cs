@@ -4,9 +4,9 @@ namespace CatSync
 {
     public partial class MainForm : Form
     {
-        private CancellationTokenSource? _readInformationCancellationTokenSource;
-        private CancellationTokenSource? _readFrequencyCancellationTokenSource;
-        private CancellationTokenSource? _syncCancellationTokenSource;
+        private CancellationTokenSource _readInformationCancellationTokenSource = new();
+        private CancellationTokenSource _readFrequencyCancellationTokenSource = new();
+        private CancellationTokenSource _syncCancellationTokenSource = new();
 
         // Connect
         private bool _button1Default = true;
@@ -51,15 +51,15 @@ namespace CatSync
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            ReadXcvrsIntormation();
+            ReadXcvrsIntormation(_readInformationCancellationTokenSource.Token);
 
             OpenXcvrPort(0);
             OpenXcvrPort(1);
 
-            ReadXcvrFrequency(0);
-            ReadXcvrFrequency(1);
+            ReadXcvrFrequency(_readFrequencyCancellationTokenSource.Token, 0);
+            ReadXcvrFrequency(_readFrequencyCancellationTokenSource.Token, 1);
 
-            SyncXcvrsFrequencies();
+            SyncXcvrsFrequencies(_syncCancellationTokenSource.Token);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -90,13 +90,13 @@ namespace CatSync
         {
             if (_button3Default)
             {
-                Xcvr.Control.Xcvrs[0].Frequency.Master = true;
-                Xcvr.Control.Xcvrs[1].Frequency.Master = false;
+                Xcvr.Control.Xcvrs[0].Frequency.MasterOn = true;
+                Xcvr.Control.Xcvrs[1].Frequency.MasterOn = false;
             }
             else
             {
-                Xcvr.Control.Xcvrs[0].Frequency.Master = false;
-                Xcvr.Control.Xcvrs[1].Frequency.Master = true;
+                Xcvr.Control.Xcvrs[0].Frequency.MasterOn = false;
+                Xcvr.Control.Xcvrs[1].Frequency.MasterOn = true;
             }
         }
 
@@ -104,13 +104,13 @@ namespace CatSync
         {
             if (_button4Default)
             {
-                Xcvr.Control.Xcvrs[1].Frequency.Master = true;
-                Xcvr.Control.Xcvrs[0].Frequency.Master = false;
+                Xcvr.Control.Xcvrs[1].Frequency.MasterOn = true;
+                Xcvr.Control.Xcvrs[0].Frequency.MasterOn = false;
             }
             else
             {
-                Xcvr.Control.Xcvrs[1].Frequency.Master = false;
-                Xcvr.Control.Xcvrs[0].Frequency.Master = true;
+                Xcvr.Control.Xcvrs[1].Frequency.MasterOn = false;
+                Xcvr.Control.Xcvrs[0].Frequency.MasterOn = true;
             }
         }
 
@@ -164,9 +164,9 @@ namespace CatSync
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _syncCancellationTokenSource?.Cancel();
-            _readFrequencyCancellationTokenSource?.Cancel();
-            _readInformationCancellationTokenSource?.Cancel();
+            _syncCancellationTokenSource.Cancel();
+            _readFrequencyCancellationTokenSource.Cancel();
+            _readInformationCancellationTokenSource.Cancel();
 
             CloseXcvrPort(0);
             DisposeXcvrPort(0);
@@ -177,12 +177,19 @@ namespace CatSync
             Environment.Exit(1);
         }
 
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _syncCancellationTokenSource.Cancel();
+            _readFrequencyCancellationTokenSource.Cancel();
+            _readInformationCancellationTokenSource.Cancel();
+        }
+
         private void SetXcvr0Labels()
         {
             this.label17.Text = Xcvr.Control.Xcvrs[0].Manufacturer;
             this.label18.Text = Xcvr.Control.Xcvrs[0].Model;
             this.label19.Text = Xcvr.Control.Xcvrs[0].Protocol;
-            this.label20.Text = Xcvr.Control.Xcvrs[0].Timeout + " ms";
+            this.label20.Text = Xcvr.Control.Xcvrs[0].Latency + " ms";
 
             this.label21.Text = Xcvr.Control.Xcvrs[0].PortSettings.PortName;
             this.label22.Text = Xcvr.Control.Xcvrs[0].PortSettings.BaudRate.ToString() + " bps";
@@ -204,7 +211,7 @@ namespace CatSync
             this.label60.Text = Xcvr.Control.Xcvrs[1].Manufacturer;
             this.label59.Text = Xcvr.Control.Xcvrs[1].Model;
             this.label58.Text = Xcvr.Control.Xcvrs[1].Protocol;
-            this.label57.Text = Xcvr.Control.Xcvrs[1].Timeout + " ms";
+            this.label57.Text = Xcvr.Control.Xcvrs[1].Latency + " ms";
 
             this.label50.Text = Xcvr.Control.Xcvrs[1].PortSettings.PortName;
             this.label49.Text = Xcvr.Control.Xcvrs[1].PortSettings.BaudRate.ToString() + " bps";
@@ -234,11 +241,8 @@ namespace CatSync
             }
         }
 
-        private async void ReadXcvrsIntormation()
+        private async void ReadXcvrsIntormation(CancellationToken readInformationCancellationToken)
         {
-            _readInformationCancellationTokenSource = new CancellationTokenSource();
-            CancellationToken readInformationCancellationToken = _readInformationCancellationTokenSource.Token;
-
             await Task.Run(() =>
             {
                 while (!readInformationCancellationToken.IsCancellationRequested)
@@ -271,41 +275,31 @@ namespace CatSync
             }, readInformationCancellationToken);
         }
 
-        private async void ReadXcvrFrequency(int id)
+        private async void ReadXcvrFrequency(CancellationToken readFrequencyCancelationToken, int id)
         {
-            _readFrequencyCancellationTokenSource = new CancellationTokenSource();
-            CancellationToken readFrequencyCancelationToken = _readFrequencyCancellationTokenSource.Token;
-
             await Task.Run(() =>
             {
                 while (!readFrequencyCancelationToken.IsCancellationRequested)
                 {
                     try
                     {
-                        if (Xcvr.Control.Xcvrs[id].SerialPort.IsOpen)
+                        if (Xcvr.Control.Xcvrs[id].Connected)
                         {
                             Xcvr.Control.ReadFrequency(Xcvr.Control.Xcvrs[id]);
-                        }
-                        else
-                        {
-                            Xcvr.Control.Xcvrs[id].Frequency.Current = 0;
                         }
                     }
                     catch (Exception ex)
                     {
-                        Xcvr.Control.Xcvrs[id].Frequency.Current = 0;
-                        Xcvr.Control.ClosePort(Xcvr.Control.Xcvrs[id]); // Check if this is needed.
+                        //Xcvr.Control.Xcvrs[id].Frequency.Current = 0;
+                        Xcvr.Control.ClosePort(Xcvr.Control.Xcvrs[id]);
                         MessageBox.Show($"{ex.Message}", "CatSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }, readFrequencyCancelationToken);
         }
 
-        private async void SyncXcvrsFrequencies()
+        private async void SyncXcvrsFrequencies(CancellationToken syncCancellationToken)
         {
-            _syncCancellationTokenSource = new CancellationTokenSource();
-            CancellationToken syncCancellationToken = _syncCancellationTokenSource.Token;
-
             await Task.Run(() =>
             {
                 while (!syncCancellationToken.IsCancellationRequested)
@@ -408,15 +402,15 @@ namespace CatSync
 
         private void SetXcvrMasterButtonInformation(int id, Button masterButton, ref bool masterButtonDefault)
         {
-            if (Xcvr.Control.Xcvrs[0].Frequency.Master == Xcvr.Control.Xcvrs[1].Frequency.Master)
+            if (Xcvr.Control.Xcvrs[0].Frequency.MasterOn == Xcvr.Control.Xcvrs[1].Frequency.MasterOn)
             {
-                Xcvr.Control.Xcvrs[0].Frequency.Master = true;
-                Xcvr.Control.Xcvrs[1].Frequency.Master = false;
+                Xcvr.Control.Xcvrs[0].Frequency.MasterOn = true;
+                Xcvr.Control.Xcvrs[1].Frequency.MasterOn = false;
             }
 
             if (Xcvr.Control.Xcvrs[id].SerialPort.IsOpen)
             {
-                if (Xcvr.Control.Xcvrs[id].Frequency.Master)
+                if (Xcvr.Control.Xcvrs[id].Frequency.MasterOn)
                 {
                     masterButton.Text = "Slave";
                     masterButtonDefault = false;
@@ -487,46 +481,46 @@ namespace CatSync
                 conectedLabel.BackColor = Color.Green;
             }
             else
-            { 
+            {
                 conectedLabel.Text = "Disconnected";
                 conectedLabel.ForeColor = Color.White;
                 conectedLabel.BackColor = Color.Red;
             }
 
-            if (Xcvr.Control.Xcvrs[id].Frequency.Master)
+            if (Xcvr.Control.Xcvrs[id].Frequency.MasterOn)
             {
                 leadingLabel.Text = "Master";
                 leadingLabel.ForeColor = Color.White;
                 leadingLabel.BackColor = Color.Black;
             }
             else
-            { 
+            {
                 leadingLabel.Text = "Slave";
                 leadingLabel.ForeColor = Color.White;
                 leadingLabel.BackColor = Color.Gray;
             }
 
             if (Xcvr.Control.Xcvrs[id].Frequency.SyncOn)
-            { 
+            {
                 syncOnLabel.Text = "Sync is On";
                 syncOnLabel.ForeColor = Color.White;
                 syncOnLabel.BackColor = Color.Green;
             }
             else
-            { 
+            {
                 syncOnLabel.Text = "Sync is Off";
                 syncOnLabel.ForeColor = Color.White;
                 syncOnLabel.BackColor = Color.Red;
             }
 
             if (Xcvr.Control.Xcvrs[id].Frequency.OffsetOn)
-            { 
+            {
                 offsetOnLabel.Text = "Offset is On";
                 offsetOnLabel.ForeColor = Color.White;
                 offsetOnLabel.BackColor = Color.Green;
             }
             else
-            { 
+            {
                 offsetOnLabel.Text = "Offset is Off";
                 offsetOnLabel.ForeColor = Color.White;
                 offsetOnLabel.BackColor = Color.Red;

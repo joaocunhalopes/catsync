@@ -44,12 +44,12 @@ namespace Serial
             }
         }
 
-        internal static void Write(System.IO.Ports.SerialPort port, byte[] command, int timeout)
+        internal static void Write(System.IO.Ports.SerialPort port, byte[] command, int latency)
         {
             try
             {
                 port.Write(command, 0, command.Length);
-                Thread.Sleep(timeout);
+                Thread.Sleep(latency);
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -77,12 +77,12 @@ namespace Serial
             }
         }
 
-        internal static byte[] WriteRead(System.IO.Ports.SerialPort port, byte[] command, int timeout)
+        internal static byte[] WriteRead(System.IO.Ports.SerialPort port, byte[] command, int latency)
         {
             try
             {
                 port.Write(command, 0, command.Length);
-                Thread.Sleep(timeout);
+                Thread.Sleep(latency);
                 return ReadBytes(port);
             }
             catch (UnauthorizedAccessException ex)

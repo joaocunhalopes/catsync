@@ -17,7 +17,7 @@ namespace Config
 
         public string Protocol { get; set; } = string.Empty;
 
-        public int Timeout { get; set; }
+        public int Latency { get; set; } = 200;
 
         public Commands Commands { get; set; } = new();
 
@@ -27,6 +27,9 @@ namespace Config
 
         [JsonIgnore]
         public System.IO.Ports.SerialPort SerialPort { get; set; } = new();
+
+        [JsonIgnore]
+        public bool Connected { get; set; } = false;
     }
 
     public class Commands
@@ -63,15 +66,15 @@ namespace Config
     public class Frequency
     {
         [JsonIgnore]
-        public bool Master { get; set; } = true;
-
-        [JsonIgnore]
-        public bool SyncOn { get; set; } = true;
-
-        [JsonIgnore]
         public int Current { get; set; } = 0;
 
         public int Offset { get; set; } = 0;
+
+        [JsonIgnore]
+        public bool MasterOn { get; set; } = true;
+
+        [JsonIgnore]
+        public bool SyncOn { get; set; } = true;
 
         [JsonIgnore]
         public bool OffsetOn { get; set; } = false;

@@ -7,7 +7,7 @@ namespace CAT
         internal static int ReadFrequency(Config.Xcvr xcvr)
         {
             byte[] byteCommand = Encoding.ASCII.GetBytes(xcvr.Commands.Read);
-            byte[] buffer = Serial.Control.WriteReadToPort(xcvr.SerialPort, byteCommand, xcvr.Timeout);
+            byte[] buffer = Serial.Control.WriteReadToPort(xcvr.SerialPort, byteCommand, xcvr.Latency);
             string bufferString = Encoding.UTF8.GetString(buffer);
             string frequencyString = FilterBuffer(bufferString, xcvr.Commands.Read, xcvr.Commands.ReadPrefix, xcvr.Commands.ReadSufix);
             return int.Parse(frequencyString);
@@ -16,7 +16,7 @@ namespace CAT
         internal static void WriteFrequency(Config.Xcvr xcvr, int currentFrequency)
         {
             byte[] byteCommand = Encoding.ASCII.GetBytes(BuildCommand(xcvr.Commands.Write, currentFrequency));
-            Serial.Control.WriteToPort(xcvr.SerialPort, byteCommand, xcvr.Timeout);
+            Serial.Control.WriteToPort(xcvr.SerialPort, byteCommand, xcvr.Latency);
         }
 
         private static string FilterBuffer(string bufferString, string command, string replyPrefix, string replySufix)

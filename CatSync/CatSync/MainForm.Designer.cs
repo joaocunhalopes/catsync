@@ -35,14 +35,12 @@
             groupBox4 = new GroupBox();
             label32 = new Label();
             label31 = new Label();
-            label30 = new Label();
             label29 = new Label();
             label28 = new Label();
             label27 = new Label();
-            label16 = new Label();
             label15 = new Label();
-            label14 = new Label();
             label13 = new Label();
+            label16 = new Label();
             label12 = new Label();
             label11 = new Label();
             groupBox2 = new GroupBox();
@@ -73,13 +71,11 @@
             groupBox6 = new GroupBox();
             label33 = new Label();
             label34 = new Label();
-            label35 = new Label();
             label36 = new Label();
             label37 = new Label();
             label38 = new Label();
             label39 = new Label();
             label40 = new Label();
-            label41 = new Label();
             label42 = new Label();
             label43 = new Label();
             label44 = new Label();
@@ -175,7 +171,7 @@
             groupBox1.Font = new Font("Segoe UI", 9F);
             groupBox1.Location = new Point(12, 35);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(239, 363);
+            groupBox1.Size = new Size(239, 352);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Transceiver/Receiver #1";
@@ -184,19 +180,17 @@
             // 
             groupBox4.Controls.Add(label32);
             groupBox4.Controls.Add(label31);
-            groupBox4.Controls.Add(label30);
             groupBox4.Controls.Add(label29);
             groupBox4.Controls.Add(label28);
             groupBox4.Controls.Add(label27);
-            groupBox4.Controls.Add(label16);
             groupBox4.Controls.Add(label15);
-            groupBox4.Controls.Add(label14);
             groupBox4.Controls.Add(label13);
+            groupBox4.Controls.Add(label16);
             groupBox4.Controls.Add(label12);
             groupBox4.Controls.Add(label11);
             groupBox4.Location = new Point(6, 237);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(227, 115);
+            groupBox4.Size = new Size(227, 103);
             groupBox4.TabIndex = 2;
             groupBox4.TabStop = false;
             groupBox4.Text = "Commands";
@@ -204,7 +198,7 @@
             // label32
             // 
             label32.AutoSize = true;
-            label32.Location = new Point(79, 94);
+            label32.Location = new Point(67, 79);
             label32.Name = "label32";
             label32.Size = new Size(44, 15);
             label32.TabIndex = 11;
@@ -213,20 +207,11 @@
             // label31
             // 
             label31.AutoSize = true;
-            label31.Location = new Point(83, 79);
+            label31.Location = new Point(71, 64);
             label31.Name = "label31";
             label31.Size = new Size(44, 15);
             label31.TabIndex = 10;
             label31.Text = "label31";
-            // 
-            // label30
-            // 
-            label30.AutoSize = true;
-            label30.Location = new Point(50, 64);
-            label30.Name = "label30";
-            label30.Size = new Size(44, 15);
-            label30.TabIndex = 9;
-            label30.Text = "label30";
             // 
             // label29
             // 
@@ -255,32 +240,14 @@
             label27.TabIndex = 6;
             label27.Text = "label27";
             // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Location = new Point(6, 94);
-            label16.Name = "label16";
-            label16.Size = new Size(67, 15);
-            label16.TabIndex = 5;
-            label16.Text = "Write Sufix:";
-            // 
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(6, 79);
+            label15.Location = new Point(6, 64);
             label15.Name = "label15";
-            label15.Size = new Size(71, 15);
+            label15.Size = new Size(59, 15);
             label15.TabIndex = 4;
-            label15.Text = "Write Prefix:";
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Location = new Point(6, 64);
-            label14.Name = "label14";
-            label14.Size = new Size(38, 15);
-            label14.TabIndex = 3;
-            label14.Text = "Write:";
+            label15.Text = "Set Prefix:";
             // 
             // label13
             // 
@@ -290,6 +257,15 @@
             label13.Size = new Size(65, 15);
             label13.TabIndex = 2;
             label13.Text = "Read Sufix:";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(6, 79);
+            label16.Name = "label16";
+            label16.Size = new Size(55, 15);
+            label16.TabIndex = 5;
+            label16.Text = "Set Sufix:";
             // 
             // label12
             // 
@@ -557,7 +533,7 @@
             groupBox5.Font = new Font("Segoe UI", 9F);
             groupBox5.Location = new Point(533, 35);
             groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(239, 363);
+            groupBox5.Size = new Size(239, 352);
             groupBox5.TabIndex = 3;
             groupBox5.TabStop = false;
             groupBox5.Text = "Transceiver/Receiver #2";
@@ -566,19 +542,17 @@
             // 
             groupBox6.Controls.Add(label33);
             groupBox6.Controls.Add(label34);
-            groupBox6.Controls.Add(label35);
             groupBox6.Controls.Add(label36);
             groupBox6.Controls.Add(label37);
             groupBox6.Controls.Add(label38);
             groupBox6.Controls.Add(label39);
             groupBox6.Controls.Add(label40);
-            groupBox6.Controls.Add(label41);
             groupBox6.Controls.Add(label42);
             groupBox6.Controls.Add(label43);
             groupBox6.Controls.Add(label44);
             groupBox6.Location = new Point(6, 237);
             groupBox6.Name = "groupBox6";
-            groupBox6.Size = new Size(227, 115);
+            groupBox6.Size = new Size(227, 103);
             groupBox6.TabIndex = 2;
             groupBox6.TabStop = false;
             groupBox6.Text = "Commands";
@@ -586,7 +560,7 @@
             // label33
             // 
             label33.AutoSize = true;
-            label33.Location = new Point(79, 94);
+            label33.Location = new Point(67, 79);
             label33.Name = "label33";
             label33.Size = new Size(44, 15);
             label33.TabIndex = 11;
@@ -595,20 +569,11 @@
             // label34
             // 
             label34.AutoSize = true;
-            label34.Location = new Point(83, 79);
+            label34.Location = new Point(71, 64);
             label34.Name = "label34";
             label34.Size = new Size(44, 15);
             label34.TabIndex = 10;
             label34.Text = "label34";
-            // 
-            // label35
-            // 
-            label35.AutoSize = true;
-            label35.Location = new Point(50, 64);
-            label35.Name = "label35";
-            label35.Size = new Size(44, 15);
-            label35.TabIndex = 9;
-            label35.Text = "label35";
             // 
             // label36
             // 
@@ -640,29 +605,20 @@
             // label39
             // 
             label39.AutoSize = true;
-            label39.Location = new Point(6, 94);
+            label39.Location = new Point(6, 79);
             label39.Name = "label39";
-            label39.Size = new Size(67, 15);
+            label39.Size = new Size(55, 15);
             label39.TabIndex = 5;
-            label39.Text = "Write Sufix:";
+            label39.Text = "Set Sufix:";
             // 
             // label40
             // 
             label40.AutoSize = true;
-            label40.Location = new Point(6, 79);
+            label40.Location = new Point(6, 64);
             label40.Name = "label40";
-            label40.Size = new Size(71, 15);
+            label40.Size = new Size(59, 15);
             label40.TabIndex = 4;
-            label40.Text = "Write Prefix:";
-            // 
-            // label41
-            // 
-            label41.AutoSize = true;
-            label41.Location = new Point(6, 64);
-            label41.Name = "label41";
-            label41.Size = new Size(38, 15);
-            label41.TabIndex = 3;
-            label41.Text = "Write:";
+            label40.Text = "Set Prefix:";
             // 
             // label42
             // 
@@ -939,9 +895,9 @@
             groupBox11.Controls.Add(button4);
             groupBox11.Controls.Add(button6);
             groupBox11.Controls.Add(label66);
-            groupBox11.Location = new Point(257, 181);
+            groupBox11.Location = new Point(257, 190);
             groupBox11.Name = "groupBox11";
-            groupBox11.Size = new Size(270, 135);
+            groupBox11.Size = new Size(270, 146);
             groupBox11.TabIndex = 2;
             groupBox11.TabStop = false;
             groupBox11.Text = "Transceiver/Receiver #2";
@@ -1046,7 +1002,7 @@
             groupBox10.Controls.Add(button3);
             groupBox10.Location = new Point(257, 35);
             groupBox10.Name = "groupBox10";
-            groupBox10.Size = new Size(270, 135);
+            groupBox10.Size = new Size(270, 146);
             groupBox10.TabIndex = 1;
             groupBox10.TabStop = false;
             groupBox10.Text = "Transceiver/Receiver #1";
@@ -1155,7 +1111,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDark;
-            ClientSize = new Size(784, 411);
+            ClientSize = new Size(784, 404);
             Controls.Add(groupBox11);
             Controls.Add(groupBox10);
             Controls.Add(groupBox5);
@@ -1163,7 +1119,7 @@
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "MainForm";
-            Text = "CatSync v0.0.6-alpha";
+            Text = "CatSync v0.0.7a-alpha";
             FormClosing += MainForm_FormClosing;
             Load += MainForm_Load;
             Shown += MainForm_Shown;
@@ -1218,7 +1174,6 @@
         private Label label11;
         private Label label16;
         private Label label15;
-        private Label label14;
         private Label label13;
         private Label label12;
         private Label label17;
@@ -1233,7 +1188,6 @@
         private Label label18;
         private Label label32;
         private Label label31;
-        private Label label30;
         private Label label29;
         private Label label28;
         private Label label27;
@@ -1241,13 +1195,11 @@
         private GroupBox groupBox6;
         private Label label33;
         private Label label34;
-        private Label label35;
         private Label label36;
         private Label label37;
         private Label label38;
         private Label label39;
         private Label label40;
-        private Label label41;
         private Label label42;
         private Label label43;
         private Label label44;

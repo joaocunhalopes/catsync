@@ -6,14 +6,6 @@
       "Model": "TS-590S",
       "Protocol": "KSI",
       "Latency": 100,
-      "Commands": {
-        "Read": "FA;",
-        "ReadPrefix": "FA",
-        "ReadSufix": ";",
-        "Write": "FA00000000000;",
-        "WritePrefix": "FA",
-        "WriteSufix": ";"
-      },
       "PortSettings": {
         "PortName": "COM8",
         "BaudRate": 115200,
@@ -23,7 +15,12 @@
         "Handshake": "RequestToSend"
       },
       "Frequency": {
-        "Offset": -1000
+        "Offset": -1000000,
+        "ReadCommand": "FA;",
+        "ReadCommandPrefix": "FA",
+        "ReadCommandSufix": ";",
+        "SetCommandPrefix": "FA",
+        "SetCommandSufix": ";"
       }
     },
     {
@@ -32,14 +29,6 @@
       "Model": "X6100",
       "Protocol": "CIV",
       "Latency": 200,
-      "Commands": {
-        "Read": "FEFEA4E003FD",
-        "ReadPrefix": "FEFEE0A403",
-        "ReadSufix": "FD",
-        "Write": "FEFEA4E0050000000000FD",
-        "WritePrefix": "FEFEE0A405",
-        "WriteSufix": "FD"
-      },
       "PortSettings": {
         "PortName": "COM9",
         "BaudRate": 19200,
@@ -49,7 +38,12 @@
         "Handshake": "None"
       },
       "Frequency": {
-        "Offset": 500
+        "Offset": 2000000,
+        "ReadCommand": "FEFEA4E003FD",
+        "ReadCommandPrefix": "FEFEE0A403",
+        "ReadCommandSufix": "FD",
+        "SetCommandPrefix": "FEFEA4E005",
+        "SetCommandSufix": "FD"
       }
     }
   ]

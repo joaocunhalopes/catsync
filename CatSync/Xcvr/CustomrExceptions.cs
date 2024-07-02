@@ -21,11 +21,11 @@
         public ReadFrequencyException(string message, Exception innerException) : base(message, innerException) { }
     }
 
-    public class WriteFrequencyException : Exception
+    public class SetFrequencyException : Exception
     {
-        public WriteFrequencyException() : base() { }
-        public WriteFrequencyException(string message) : base(message) { }
-        public WriteFrequencyException(string message, Exception innerException) : base(message, innerException) { }
+        public SetFrequencyException() : base() { }
+        public SetFrequencyException(string message) : base(message) { }
+        public SetFrequencyException(string message, Exception innerException) : base(message, innerException) { }
     }
 
     public class ClosePortException : Exception

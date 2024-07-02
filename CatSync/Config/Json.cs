@@ -19,33 +19,15 @@ namespace Config
 
         public int Latency { get; set; } = 200;
 
-        public Commands Commands { get; set; } = new();
-
         public PortSettings PortSettings { get; set; } = new();
 
         public Frequency Frequency { get; set; } = new();
 
         [JsonIgnore]
-        public System.IO.Ports.SerialPort SerialPort { get; set; } = new();
+        public Switches Switches { get; set; } = new();
 
         [JsonIgnore]
-        public bool Connected { get; set; } = false;
-    }
-
-    public class Commands
-    {
-        public string Read { get; set; } = string.Empty;
-
-        public string ReadPrefix { get; set; } = string.Empty;
-
-        public string ReadSufix { get; set; } = string.Empty;
-
-
-        public string Write { get; set; } = string.Empty;
-
-        public string WritePrefix { get; set; } = string.Empty;
-
-        public string WriteSufix { get; set; } = string.Empty;
+        public System.IO.Ports.SerialPort SerialPort { get; set; } = new();
     }
 
     public class PortSettings
@@ -68,15 +50,28 @@ namespace Config
         [JsonIgnore]
         public int Current { get; set; } = 0;
 
+        [JsonIgnore]
+        public int Previous { get; set; } = 0;
+
         public int Offset { get; set; } = 0;
 
-        [JsonIgnore]
+        public string ReadCommand { get; set; } = string.Empty;
+
+        public string ReadCommandPrefix { get; set; } = string.Empty;
+
+        public string ReadCommandSufix { get; set; } = string.Empty;
+
+        public string SetCommandPrefix { get; set; } = string.Empty;
+
+        public string SetCommandSufix { get; set; } = string.Empty;
+    }
+
+    public class Switches
+    {
         public bool MasterOn { get; set; } = true;
 
-        [JsonIgnore]
         public bool SyncOn { get; set; } = true;
 
-        [JsonIgnore]
         public bool OffsetOn { get; set; } = false;
     }
 }

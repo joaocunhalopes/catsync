@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using Config;
+using Serilog;
 
 namespace Xcvr
 {
@@ -7,7 +8,6 @@ namespace Xcvr
         private const int FrequencyLowerLimit = 0;
         private const int FrequencyHigherLimit = 999999999;
 
-        //private static readonly object _xcvrsLockObject = new object();
         private volatile static List<Config.Xcvr> _xcvrs = new();
 
         public static List<Config.Xcvr> Xcvrs
@@ -22,8 +22,10 @@ namespace Xcvr
             {
                 Xcvrs = global::Config.Control.ReadConfig();
             }
-            catch
+            catch (Exception ex)
             {
+                Log.Warning(ex.Message);
+                Log.Error($"{ex.StackTrace}");
                 throw new ConfigException($"Error configuring application.");
             }
         }
@@ -44,90 +46,60 @@ namespace Xcvr
                 xcvr.SerialPort = port;
 
                 Serial.Control.PortOpen(xcvr.SerialPort);
-                xcvr.Connected = true;
             }
-            catch
+            catch (Exception ex)
             {
-                xcvr.Connected = false;
+                Log.Warning(ex.Message);
+                Log.Error($"{ex.StackTrace}");
                 throw new OpenPortException($"Could not open port {xcvr.PortSettings.PortName}.");
             }
         }
 
-        public static void ReadFrequency(Config.Xcvr xcvr)
+        public static void SyncXcvrFrequencies(Config.Xcvr idXcvr0, Config.Xcvr idXcvr1)
         {
-            try
+            Config.Xcvr xcvrMaster = idXcvr0;
+            Config.Xcvr xcvrSlave = idXcvr1;
+
+            if (idXcvr1.Switches.MasterOn)
             {
-                //lock (_xcvrsLockObject)
-                //{
-                    int frequency = CAT.Control.ReadFrequency(xcvr);
-                    xcvr.Frequency.Current = frequency;
-                //}
+                xcvrMaster = idXcvr1;
+                xcvrSlave = idXcvr0;
             }
-            catch (Exception ex)
+
+            if (xcvrMaster.SerialPort.IsOpen)
             {
-                Log.Debug(ex.Message);
-                Log.Debug($"{ex.StackTrace}");
-                throw new ReadFrequencyException($"Could not read frequency for {xcvr.Manufacturer} {xcvr.Model}.");
-            }
-        }
-
-        public static void SyncFrequencies()
-        {
-            int frequency;
-
-            if (Xcvrs[0].Connected && Xcvrs[0].Frequency.MasterOn && Xcvrs[1].Connected && Xcvrs[1].Frequency.SyncOn)
-            {
-                frequency = Xcvrs[0].Frequency.Current;
-
-                if (Xcvrs[0].Frequency.OffsetOn && Xcvrs[0].Frequency.Offset != 0)
+                try
                 {
-                    frequency = Math.Clamp(frequency + Xcvrs[0].Frequency.Offset, FrequencyLowerLimit, FrequencyHigherLimit);
+                    xcvrMaster.Frequency.Current = CAT.Control.ReadFrequency(xcvrMaster);
                 }
-
-                if (Xcvrs[1].Frequency.Current != frequency && Xcvrs[1].SerialPort.IsOpen)
+                catch (Exception ex)
                 {
-                    try
-                    {
-                        //lock (_xcvrsLockObject)
-                        //{
-                            CAT.Control.WriteFrequency(Xcvrs[1], frequency);
-                            Xcvrs[1].Frequency.Current = frequency;
-                        //}
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Debug(ex.Message);
-                        Log.Debug($"{ex.StackTrace}");
-                        throw new WriteFrequencyException($"Could not write frequency on {Xcvrs[1].Manufacturer} {Xcvrs[1].Model}.");
-                    }
+                    Log.Warning(ex.Message);
+                    Log.Error($"{ex.StackTrace}");
+                    ClosePort(xcvrMaster);
+                    throw new ReadFrequencyException($"Could not read frequency for {xcvrMaster.Manufacturer} {xcvrMaster.Model}.");
                 }
             }
-            else
-            if (Xcvrs[1].Connected && Xcvrs[1].Frequency.MasterOn && Xcvrs[0].Connected && Xcvrs[0].Frequency.SyncOn)
-            {
-                frequency = Xcvrs[1].Frequency.Current;
 
-                if (Xcvrs[1].Frequency.OffsetOn && Xcvrs[1].Frequency.Offset != 0)
+            if (xcvrSlave.SerialPort.IsOpen && xcvrSlave.Switches.SyncOn)
+            {
+                int frequency = xcvrMaster.Frequency.Current;
+                if (xcvrMaster.Switches.OffsetOn && xcvrMaster.Frequency.Offset != 0)
                 {
-                    frequency = Math.Clamp(frequency + Xcvrs[1].Frequency.Offset, FrequencyLowerLimit, FrequencyHigherLimit);
+                    frequency = Math.Clamp(frequency + xcvrMaster.Frequency.Offset, FrequencyLowerLimit, FrequencyHigherLimit);
                 }
 
-                if (Xcvrs[0].Frequency.Current != frequency && Xcvrs[0].SerialPort.IsOpen)
+                try
                 {
-                    try
-                    {
-                        //lock (_xcvrsLockObject)
-                        //{
-                            CAT.Control.WriteFrequency(Xcvrs[0], frequency);
-                            Xcvrs[0].Frequency.Current = frequency;
-                        //}
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Debug(ex.Message);
-                        Log.Debug($"{ex.StackTrace}");
-                        throw new WriteFrequencyException($"Could not write frequency on {Xcvrs[0].Manufacturer} {Xcvrs[0].Model}.");
-                    }
+                    CAT.Control.SetFrequency(xcvrSlave, frequency);
+                    xcvrSlave.Frequency.Current = frequency;
+                }
+                catch (Exception ex)
+                {
+                    Log.Warning(ex.Message);
+                    Log.Error($"{ex.StackTrace}");
+                    ClosePort(xcvrSlave);
+                    throw new SetFrequencyException($"Could not set frequency for {xcvrSlave.Manufacturer} {xcvrSlave.Model}.");
                 }
             }
         }
@@ -137,11 +109,11 @@ namespace Xcvr
             try
             {
                 Serial.Control.PortClose(xcvr.SerialPort);
-                xcvr.Connected = false;
             }
-            catch
+            catch (Exception ex)
             {
-                xcvr.Connected = false;
+                Log.Warning(ex.Message);
+                Log.Error($"{ex.StackTrace}");
                 throw new ClosePortException($"Could not close port {xcvr.PortSettings.PortName}.");
             }
         }
@@ -151,11 +123,11 @@ namespace Xcvr
             try
             {
                 Serial.Control.PortDispose(xcvr.SerialPort);
-                xcvr.Connected = false;
             }
-            catch
+            catch (Exception ex)
             {
-                xcvr.Connected = false;
+                Log.Warning(ex.Message);
+                Log.Error($"{ex.StackTrace}");
                 throw new DisposePortException($"Could not dispose port {xcvr.PortSettings.PortName}.");
             }
         }

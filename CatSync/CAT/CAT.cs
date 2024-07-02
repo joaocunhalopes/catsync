@@ -6,35 +6,88 @@ namespace CAT
     {
         internal static int ReadFrequency(Config.Xcvr xcvr)
         {
-            byte[] byteCommand = Encoding.ASCII.GetBytes(xcvr.Commands.Read);
-            byte[] buffer = Serial.Control.WriteReadToPort(xcvr.SerialPort, byteCommand, xcvr.Latency);
-            string bufferString = Encoding.UTF8.GetString(buffer);
-            string frequencyString = FilterBuffer(bufferString, xcvr.Commands.Read, xcvr.Commands.ReadPrefix, xcvr.Commands.ReadSufix);
-            return int.Parse(frequencyString);
-        }
-
-        internal static void WriteFrequency(Config.Xcvr xcvr, int currentFrequency)
-        {
-            byte[] byteCommand = Encoding.ASCII.GetBytes(BuildCommand(xcvr.Commands.Write, currentFrequency));
+            byte[] byteCommand = HexStringToByteArray(xcvr.Frequency.ReadCommand);
             Serial.Control.WriteToPort(xcvr.SerialPort, byteCommand, xcvr.Latency);
+
+            byte[] buffer = Serial.Control.ReadFromPort(xcvr.SerialPort);
+            string bufferString = ByteArrayToHexString(buffer);
+            return FilterBuffer(bufferString, xcvr.Frequency.ReadCommandPrefix, xcvr.Frequency.ReadCommandSufix);
         }
 
-        private static string FilterBuffer(string bufferString, string command, string replyPrefix, string replySufix)
+        internal static void SetFrequency(Config.Xcvr xcvr, int currentFrequency)
         {
-            bufferString = bufferString.Replace(command, string.Empty);
-            int startIndex = bufferString.IndexOf(replyPrefix, StringComparison.Ordinal);
-            startIndex += replyPrefix.Length;
-            int endIndex = bufferString.IndexOf(replySufix, startIndex, StringComparison.Ordinal);
-            return bufferString.Substring(startIndex, endIndex - startIndex);
+            byte[] byteCommand = HexStringToByteArray(BuildCommand(xcvr.Frequency.SetCommandPrefix, currentFrequency, xcvr.Frequency.SetCommandSufix));
+            Serial.Control.WriteToPort(xcvr.SerialPort, byteCommand, 0);
         }
 
-        private static string BuildCommand(string updateFrequency, int currentFrequency)
+        private static byte[] HexStringToByteArray(string command)
         {
-            string currentFrequencyString = currentFrequency.ToString().PadLeft(11, '0');
-            string frequencyStrintPrefix = updateFrequency.Substring(0, 2);
-            string frequencyStrintSufix = updateFrequency.Substring(13, 1);
-            string commandString = frequencyStrintPrefix + currentFrequencyString + frequencyStrintSufix;
+            return Encoding.UTF8.GetBytes(command);
+        }
+
+        private static string ByteArrayToHexString(byte[] byteArray)
+        {
+            return Encoding.UTF8.GetString(byteArray);
+        }
+
+        private static int FilterBuffer(string bufferString, string prefix, string suffix)
+        {
+            int responseLength = bufferString.Length;
+            int prefixLength = prefix.Length;
+            int suffixLength = suffix.Length;
+
+            string frequencyString = "0";
+            int i = 0;
+            while (i + prefixLength <= responseLength)
+            {
+                if (bufferString[i] == prefix[0] && bufferString.Substring(i, prefixLength) == prefix)
+                {
+                    i += prefixLength;
+
+                    int start = i;
+                    while (i + suffixLength <= responseLength && bufferString.Substring(i, suffixLength) != suffix)
+                    {
+                        i++;
+                    }
+
+                    if (i + suffixLength <= responseLength)
+                    {
+                        frequencyString = bufferString.Substring(start, i - start);
+                        i += suffixLength;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            return DecodeFrequency(frequencyString);
+        }
+
+        private static int DecodeFrequency(string frequencyString)
+        {
+            int frequency = 0;
+            int length = frequencyString.Length;
+            for (int j = 0; j < length; j++)
+            {
+                frequency = frequency * 10 + (frequencyString[j] - '0');
+            }
+            return frequency;
+        }
+
+        private static string BuildCommand(string writePrefix, int currentFrequency, string writeSufix)
+        {
+            string commandString = writePrefix + EncodeFrequency(currentFrequency) + writeSufix;
             return commandString;
+        }
+
+        private static string EncodeFrequency(int frequency)
+        {
+            return frequency.ToString().PadLeft(11, '0');
         }
     }
 }

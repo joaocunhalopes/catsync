@@ -6,189 +6,55 @@ namespace Serial
     {
         internal static void Open(System.IO.Ports.SerialPort port)
         {
-            try
+            if (port.IsOpen)
             {
-                if (port.IsOpen)
-                {
-                    Log.Warning($"Port {port.PortName} is already open.");
-                }
-                else
-                {
-                    port.Open();
-                    Log.Information($"Opened port {port.PortName}.");
-                }
+                Log.Warning($"Port {port.PortName} is already open.");
             }
-            catch (UnauthorizedAccessException ex)
+            else
             {
-                Log.Warning($"Access denied to port {port.PortName}.");
-                Log.Error(ex.Message);
-                throw;
+                port.Open();
+                Log.Information($"Opened port {port.PortName}.");
             }
-            catch (IOException ex)
-            {
-                Log.Warning($"I/O error opening port {port.PortName}.");
-                Log.Error(ex.Message);
-                throw;
-            }
-            catch (InvalidOperationException ex)
-            {
-                Log.Warning($"Invalid operation on port {port.PortName}.");
-                Log.Error(ex.Message);
-                throw;
-            }
-            catch (Exception ex)
-            {
-                Log.Warning($"Unexpected error opening port {port.PortName}.");
-                Log.Error(ex.Message);
-                throw;
-            }
+        }
+
+        internal static byte[] Read(System.IO.Ports.SerialPort port)
+        {
+            byte[] buffer = new byte[4096]; // Adjust buffer site if needed.
+            int bytesRead = port.Read(buffer, 0, buffer.Length);
+            byte[] responseBytes = new byte[bytesRead];
+            Buffer.BlockCopy(buffer, 0, responseBytes, 0, bytesRead);
+            return responseBytes;
         }
 
         internal static void Write(System.IO.Ports.SerialPort port, byte[] command, int latency)
         {
-            try
-            {
-                port.Write(command, 0, command.Length);
-                Thread.Sleep(latency);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Warning($"Access denied to port {port.PortName}.");
-                Log.Error(ex.Message);
-                throw;
-            }
-            catch (IOException ex)
-            {
-                Log.Warning($"I/O error sending data to port {port.PortName}.");
-                Log.Error(ex.Message);
-                throw;
-            }
-            catch (InvalidOperationException ex)
-            {
-                Log.Warning($"Invalid operation on port {port.PortName}.");
-                Log.Error(ex.Message);
-                throw;
-            }
-            catch (Exception ex)
-            {
-                Log.Warning($"Unexpected error sending data to port {port.PortName}.");
-                Log.Error(ex.Message);
-                throw;
-            }
-        }
-
-        internal static byte[] WriteRead(System.IO.Ports.SerialPort port, byte[] command, int latency)
-        {
-            try
-            {
-                port.Write(command, 0, command.Length);
-                Thread.Sleep(latency);
-                return ReadBytes(port);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Warning($"Access denied to port {port.PortName}.");
-                Log.Error(ex.Message);
-                throw;
-            }
-            catch (IOException ex)
-            {
-                Log.Warning($"I/O error sending data to port {port.PortName}.");
-                Log.Error(ex.Message);
-                throw;
-            }
-            catch (InvalidOperationException ex)
-            {
-                Log.Warning($"Invalid operation on port {port.PortName}.");
-                Log.Error(ex.Message);
-                throw;
-            }
-            catch (Exception ex)
-            {
-                Log.Warning($"Unexpected error sending/reading data to/from port {port.PortName}.");
-                Log.Error(ex.Message);
-                throw;
-            }
+            port.Write(command, 0, command.Length);
+            Thread.Sleep(latency);
         }
 
         internal static void Close(System.IO.Ports.SerialPort port)
         {
-            try
+            if (port.IsOpen)
             {
-                if (port.IsOpen)
-                {
-                    port.Close();
-                    Log.Information($"Closed port {port.PortName}.");
-                }
-                else
-                {
-                    Log.Warning($"Port {port.PortName} is already closed.");
-                }
+                port.Close();
+                Log.Information($"Closed port {port.PortName}.");
             }
-            catch (IOException ex)
+            else
             {
-                Log.Error(ex.Message);
-                Log.Warning($"I/O error closing port {port.PortName}.");
-            }
-            catch (InvalidOperationException ex)
-            {
-                Log.Error(ex.Message);
-                Log.Warning($"Invalid operation on port {port.PortName}.");
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex.Message);
-                Log.Warning($"Unexpected error closing port {port.PortName}.");
+                Log.Warning($"Port {port.PortName} is already closed.");
             }
         }
 
         internal static void Dispose(System.IO.Ports.SerialPort port)
         {
-            try
+            if (port.IsOpen)
             {
-                if (port.IsOpen)
-                {
-                    port.Close();
-                    port.Dispose();
-                    Log.Information($"Closed port {port.PortName}.");
-                }
-                else
-                {
-                    Log.Warning($"Port {port.PortName} is already closed.");
-                }
+                port.Dispose();
+                Log.Information($"Disposed port {port.PortName}.");
             }
-            catch (IOException ex)
+            else
             {
-                Log.Error(ex.Message);
-                Log.Warning($"I/O error closing port {port.PortName}.");
-            }
-            catch (InvalidOperationException ex)
-            {
-                Log.Error(ex.Message);
-                Log.Warning($"Invalid operation on port {port.PortName}.");
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex.Message);
-                Log.Warning($"Unexpected error disposing port {port.PortName}.");
-            }
-        }
-
-        private static byte[] ReadBytes(System.IO.Ports.SerialPort serialPort)
-        {
-            try
-            {
-                byte[] buffer = new byte[4096]; // BUffer size 4Kb.
-                int bytesRead = serialPort.Read(buffer, 0, buffer.Length);
-                byte[] responseBytes = new byte[bytesRead];
-                Array.Copy(buffer, responseBytes, bytesRead);
-                return responseBytes;
-            }
-            catch (Exception ex)
-            {
-                Log.Warning("Error reading data from port.");
-                Log.Error(ex.Message);
-                throw;
+                Log.Warning($"Port {port.PortName} is already disposed.");
             }
         }
     }

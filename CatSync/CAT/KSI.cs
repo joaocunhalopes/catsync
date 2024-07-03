@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Serilog;
+using System.Text;
 
 namespace CAT
 {
@@ -11,6 +12,9 @@ namespace CAT
 
             byte[] buffer = Serial.Control.ReadFromPort(xcvr.SerialPort);
             string bufferString = ByteArrayToHexString(buffer);
+            // ---
+            Log.Debug($"KSI ReadFrequency bufferString: {bufferString}");
+            // ---
             return FilterBuffer(bufferString, xcvr.Frequency.ReadCommandPrefix, xcvr.Frequency.ReadCommandSufix);
         }
 
@@ -65,6 +69,9 @@ namespace CAT
                     i++;
                 }
             }
+            // ---
+            Log.Debug($"KSI FilterBuffer frequencyString: {frequencyString}");
+            // ---
             return DecodeFrequency(frequencyString);
         }
 
@@ -76,6 +83,9 @@ namespace CAT
             {
                 frequency = frequency * 10 + (frequencyString[j] - '0');
             }
+            // ---
+            Log.Debug($"KSI DecodeFrequency frequency: {frequency}");
+            // ---
             return frequency;
         }
 

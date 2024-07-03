@@ -1,12 +1,11 @@
-using Config;
 using Xcvr;
 
 namespace CatSync
 {
     public partial class MainForm : Form
     {
-        private CancellationTokenSource _readInformationCancellationTokenSource = new();
-        private CancellationTokenSource _syncCancellationTokenSource = new();
+        private CancellationTokenSource _setInformationCancellationTokenSource = new();
+        private CancellationTokenSource _syncXcvrsCancellationTokenSource = new();
 
         // Connect
         private bool _button1Default = true;
@@ -51,12 +50,12 @@ namespace CatSync
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            ReadXcvrsIntormation(_readInformationCancellationTokenSource.Token);
+            SetXcvrsInformation(_setInformationCancellationTokenSource.Token);
 
             OpenXcvrPort(0);
             OpenXcvrPort(1);
 
-            SyncXcvrFrequencies(_syncCancellationTokenSource.Token, 0, 1);
+            SyncXcvrsFrequency(_syncXcvrsCancellationTokenSource.Token);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -161,13 +160,10 @@ namespace CatSync
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _syncCancellationTokenSource.Cancel();
-            _readInformationCancellationTokenSource.Cancel();
+            _syncXcvrsCancellationTokenSource.Cancel();
+            _setInformationCancellationTokenSource.Cancel();
 
-            CloseXcvrPort(0);
             DisposeXcvrPort(0);
-
-            CloseXcvrPort(1);
             DisposeXcvrPort(1);
 
             Environment.Exit(1);
@@ -175,8 +171,8 @@ namespace CatSync
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _syncCancellationTokenSource.Cancel();
-            _readInformationCancellationTokenSource.Cancel();
+            _syncXcvrsCancellationTokenSource.Cancel();
+            _setInformationCancellationTokenSource.Cancel();
         }
 
         private void SetXcvr0Labels()
@@ -234,11 +230,11 @@ namespace CatSync
             }
         }
 
-        private async void ReadXcvrsIntormation(CancellationToken readInformationCancellationToken)
+        private async void SetXcvrsInformation(CancellationToken setInformationCancellationToken)
         {
             await Task.Run(() =>
             {
-                while (!readInformationCancellationToken.IsCancellationRequested)
+                while (!setInformationCancellationToken.IsCancellationRequested)
                 {
                     try
                     {
@@ -265,25 +261,25 @@ namespace CatSync
                         MessageBox.Show($"{ex.Message}", "CatSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
-            }, readInformationCancellationToken);
+            }, setInformationCancellationToken);
         }
 
-        private async void SyncXcvrFrequencies(CancellationToken syncFrequenciesCancelationToken, int idXcvr0, int idXcvr1)
+        private async void SyncXcvrsFrequency(CancellationToken syncXcvrsCancellationToken)
         {
             await Task.Run(() =>
             {
-                while (!syncFrequenciesCancelationToken.IsCancellationRequested)
+                while (!syncXcvrsCancellationToken.IsCancellationRequested)
                 {
                     try
                     {
-                        Xcvr.Control.SyncXcvrFrequencies(Xcvr.Control.Xcvrs[idXcvr0], Xcvr.Control.Xcvrs[idXcvr1]);
+                        Xcvr.Control.SyncXcvrsFrequency();
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show($"{ex.Message}", "CatSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
-            }, syncFrequenciesCancelationToken);
+            }, syncXcvrsCancellationToken);
         }
 
         private void CloseXcvrPort(int id)
@@ -312,25 +308,18 @@ namespace CatSync
 
         private static string FormatFrequencyWithDots(int frequency)
         {
-            if (frequency == 0)
+            string formatedFrequency = frequency.ToString("#,0", System.Globalization.CultureInfo.InvariantCulture).Replace(",", ".");
+            int formatedFrequencyLenght = formatedFrequency.Length;
+            string frequencyUnit = "MHz";
+            if (formatedFrequencyLenght >= 5 && formatedFrequencyLenght <= 7)
             {
-                return "000.000.000 MHz";
+                frequencyUnit = "KHz";
             }
-            else
+            else if (formatedFrequencyLenght >= 1 && formatedFrequencyLenght <= 3)
             {
-                string formatedFrequency = frequency.ToString("#,0", System.Globalization.CultureInfo.InvariantCulture).Replace(",", ".");
-                int formatedFrequencyLenght = formatedFrequency.Length;
-                string frequencyUnit = "MHz";
-                if (formatedFrequencyLenght >= 5 && formatedFrequencyLenght <= 7)
-                {
-                    frequencyUnit = "KHz";
-                }
-                else if (formatedFrequencyLenght >= 1 && formatedFrequencyLenght <= 3)
-                {
-                    frequencyUnit = "Hz";
-                }
-                return ($"{formatedFrequency} {frequencyUnit}");
+                frequencyUnit = "Hz";
             }
+            return ($"{formatedFrequency} {frequencyUnit}");
         }
 
         private void SetXcvrFrequencyInformation(int id, Label frequencyLabel, Label offsetLabel)

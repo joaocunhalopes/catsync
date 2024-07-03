@@ -1119,7 +1119,7 @@
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "MainForm";
-            Text = "CatSync v0.0.7a-alpha";
+            Text = "CatSync v0.0.8-alpha";
             FormClosing += MainForm_FormClosing;
             Load += MainForm_Load;
             Shown += MainForm_Shown;

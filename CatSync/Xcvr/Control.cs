@@ -1,13 +1,11 @@
 ﻿using Config;
 using Serilog;
+using System.Numerics;
 
 namespace Xcvr
 {
     public static class Control
     {
-        private const int FrequencyLowerLimit = 0;
-        private const int FrequencyHigherLimit = 999999999;
-
         private volatile static List<Config.Xcvr> _xcvrs = new();
 
         public static List<Config.Xcvr> Xcvrs
@@ -55,22 +53,22 @@ namespace Xcvr
             }
         }
 
-        public static void SyncXcvrFrequencies(Config.Xcvr idXcvr0, Config.Xcvr idXcvr1)
+        public static void SyncXcvrsFrequency()
         {
-            Config.Xcvr xcvrMaster = idXcvr0;
-            Config.Xcvr xcvrSlave = idXcvr1;
+            // Select Master and Slave based on the MasterOn switch position.
+            Config.Xcvr xcvrMaster = Xcvrs[0].Switches.MasterOn ? Xcvrs[0] : Xcvrs[1];
+            Config.Xcvr xcvrSlave = Xcvrs[0].Switches.MasterOn ? Xcvrs[1] : Xcvrs[0];
 
-            if (idXcvr1.Switches.MasterOn)
-            {
-                xcvrMaster = idXcvr1;
-                xcvrSlave = idXcvr0;
-            }
-
+            // Master will read it's frequency, unless port is closed.
             if (xcvrMaster.SerialPort.IsOpen)
             {
                 try
                 {
-                    xcvrMaster.Frequency.Current = CAT.Control.ReadFrequency(xcvrMaster);
+                    int masterFrequency = CAT.Control.ReadFrequency(xcvrMaster);
+                    if (FrequencyRange.Contains(masterFrequency)) // This assures only in range frequencies are updated.
+                    {
+                        xcvrMaster.Frequency.Current = masterFrequency;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -81,25 +79,48 @@ namespace Xcvr
                 }
             }
 
+            // Slave will follow Master, as long as the SyncOn switch is ON and the port is open.
             if (xcvrSlave.SerialPort.IsOpen && xcvrSlave.Switches.SyncOn)
             {
-                int frequency = xcvrMaster.Frequency.Current;
-                if (xcvrMaster.Switches.OffsetOn && xcvrMaster.Frequency.Offset != 0)
+                int masterFrequency = xcvrMaster.Frequency.Current;
+                if (xcvrMaster.Switches.OffsetOn && xcvrMaster.Frequency.Offset != 0) // Include offset in frequency calculation.
                 {
-                    frequency = Math.Clamp(frequency + xcvrMaster.Frequency.Offset, FrequencyLowerLimit, FrequencyHigherLimit);
+                    masterFrequency = Math.Clamp(masterFrequency + xcvrMaster.Frequency.Offset, FrequencyRange.LowerLimit, FrequencyRange.UpperLimit);
                 }
 
+                if (FrequencyRange.Contains(masterFrequency)) // This assures only in range frequencies are updated.
+                {
+                    try
+                    {
+                        CAT.Control.SetFrequency(xcvrSlave, masterFrequency);
+                        xcvrSlave.Frequency.Current = masterFrequency;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Warning(ex.Message);
+                        Log.Error($"{ex.StackTrace}");
+                        ClosePort(xcvrSlave);
+                        throw new SetFrequencyException($"Could not set frequency for {xcvrSlave.Manufacturer} {xcvrSlave.Model}.");
+                    }
+                }
+            }
+            // Slave will read it's frequency, as long as the SyncOn switch is OFF and the port is open.
+            else if (xcvrSlave.SerialPort.IsOpen && !xcvrSlave.Switches.SyncOn)
+            {
                 try
                 {
-                    CAT.Control.SetFrequency(xcvrSlave, frequency);
-                    xcvrSlave.Frequency.Current = frequency;
+                    int slaveFrequency = CAT.Control.ReadFrequency(xcvrSlave);
+                    if (FrequencyRange.Contains(slaveFrequency)) // This assures only in range frequencies are updated.
+                    {
+                        xcvrSlave.Frequency.Current = slaveFrequency;
+                    }
                 }
                 catch (Exception ex)
                 {
                     Log.Warning(ex.Message);
                     Log.Error($"{ex.StackTrace}");
                     ClosePort(xcvrSlave);
-                    throw new SetFrequencyException($"Could not set frequency for {xcvrSlave.Manufacturer} {xcvrSlave.Model}.");
+                    throw new ReadFrequencyException($"Could not read frequency for {xcvrSlave.Manufacturer} {xcvrSlave.Model}.");
                 }
             }
         }

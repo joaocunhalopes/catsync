@@ -1,4 +1,5 @@
-﻿using Util;
+﻿using System.IO.Ports;
+using Util;
 
 namespace Serial
 {

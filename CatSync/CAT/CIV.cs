@@ -11,7 +11,9 @@ namespace CAT
 
             byte[] buffer = Serial.Control.ReadFromPort(xcvr.SerialPort);
             string bufferString = ByteArrayToHexString(buffer);
-            //Log.Debug($"CIV Buffer String: {bufferString}");
+            // ---
+            Log.Debug($"CIV ReadFrequency bufferString: {bufferString}");
+            // ===
             return FilterBuffer(bufferString, xcvr.Frequency.ReadCommandPrefix, xcvr.Frequency.ReadCommandSufix);
         }
 
@@ -23,7 +25,6 @@ namespace CAT
 
         private static byte[] HexStringToByteArray(string command)
         {
-            //Log.Debug($"CIV HexStringToByteArray Command: {command}");
             int numberOfChars = command.Length;
             byte[] byteCommand = new byte[numberOfChars / 2];
             for (int i = 0; i < numberOfChars; i += 2)
@@ -73,6 +74,9 @@ namespace CAT
                     i++;
                 }
             }
+            // ---
+            Log.Debug($"CIV FilterBuffer frequencyString: {frequencyString}");
+            // ---
             return DecodeFrequency(frequencyString);
         }
 
@@ -80,6 +84,7 @@ namespace CAT
         {
             if (string.IsNullOrEmpty(frequencyString) || frequencyString.Length != 10)
             {
+                Log.Debug($"CIV DecodeFrequency frequency: {0}");
                 return 0;
             }
 
@@ -94,6 +99,9 @@ namespace CAT
             frequency += (frequencyString[3] - '0') * 100;        // 100 Hz
             frequency += (frequencyString[0] - '0') * 10;         // 10 Hz
             frequency += (frequencyString[1] - '0');              // 1 Hz
+            // ---
+            Log.Debug($"CIV DecodeFrequency frequency: {frequency}");
+            // ---
             return frequency;
         }
 
@@ -116,7 +124,6 @@ namespace CAT
         private static string BuildCommand(string writeSufix, int currentFrequency, string writePrefix)
         {
             string commandString = writeSufix + EncodeFrequency(currentFrequency) + writePrefix;
-            //Log.Debug($"CIV BuildCommmand CommandString: {commandString}");
             return commandString;
         }
 

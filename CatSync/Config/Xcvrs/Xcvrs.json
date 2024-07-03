@@ -5,7 +5,7 @@
       "Manufacturer": "KENWOOD",
       "Model": "TS-590S",
       "Protocol": "KSI",
-      "Latency": 100,
+      "Latency": 50,
       "PortSettings": {
         "PortName": "COM8",
         "BaudRate": 115200,
@@ -28,7 +28,7 @@
       "Manufacturer": "Xiegu",
       "Model": "X6100",
       "Protocol": "CIV",
-      "Latency": 200,
+      "Latency": 100,
       "PortSettings": {
         "PortName": "COM9",
         "BaudRate": 19200,

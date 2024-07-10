@@ -4,5 +4,17 @@
     <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Xcvr1ConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Xcvr1OffsetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Xcvr2ConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Xcvr2OffsetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

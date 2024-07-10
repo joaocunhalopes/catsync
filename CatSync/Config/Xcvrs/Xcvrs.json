@@ -2,7 +2,7 @@
   "Xcvrs": [
     {
       "Id": 1,
-      "Manufacturer": "KENWOOD",
+      "Manufacturer": "Kenwood",
       "Model": "TS-590S",
       "Protocol": "KSI",
       "Latency": 50,

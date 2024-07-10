@@ -31,6 +31,12 @@
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
+            configToolStripMenuItem = new ToolStripMenuItem();
+            transceiverReceiver1ToolStripMenuItem = new ToolStripMenuItem();
+            transceiverReceiver2ToolStripMenuItem = new ToolStripMenuItem();
+            offsetToolStripMenuItem = new ToolStripMenuItem();
+            transceiverReceiver1ToolStripMenuItem1 = new ToolStripMenuItem();
+            transceiverReceiver2ToolStripMenuItem1 = new ToolStripMenuItem();
             groupBox1 = new GroupBox();
             groupBox4 = new GroupBox();
             label32 = new Label();
@@ -104,6 +110,7 @@
             label64 = new Label();
             label66 = new Label();
             groupBox11 = new GroupBox();
+            button10 = new Button();
             groupBox13 = new GroupBox();
             label76 = new Label();
             label75 = new Label();
@@ -114,6 +121,7 @@
             button4 = new Button();
             button6 = new Button();
             groupBox10 = new GroupBox();
+            button9 = new Button();
             groupBox9 = new GroupBox();
             label72 = new Label();
             label71 = new Label();
@@ -142,7 +150,7 @@
             // menuStrip1
             // 
             menuStrip1.BackColor = SystemColors.ControlDarkDark;
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, configToolStripMenuItem, offsetToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(784, 24);
@@ -162,6 +170,48 @@
             exitToolStripMenuItem.Size = new Size(93, 22);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
+            // 
+            // configToolStripMenuItem
+            // 
+            configToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { transceiverReceiver1ToolStripMenuItem, transceiverReceiver2ToolStripMenuItem });
+            configToolStripMenuItem.Name = "configToolStripMenuItem";
+            configToolStripMenuItem.Size = new Size(55, 20);
+            configToolStripMenuItem.Text = "Config";
+            // 
+            // transceiverReceiver1ToolStripMenuItem
+            // 
+            transceiverReceiver1ToolStripMenuItem.Name = "transceiverReceiver1ToolStripMenuItem";
+            transceiverReceiver1ToolStripMenuItem.Size = new Size(197, 22);
+            transceiverReceiver1ToolStripMenuItem.Text = "Transceiver/Receiver #1";
+            transceiverReceiver1ToolStripMenuItem.Click += transceiverReceiver1ToolStripMenuItem_Click;
+            // 
+            // transceiverReceiver2ToolStripMenuItem
+            // 
+            transceiverReceiver2ToolStripMenuItem.Name = "transceiverReceiver2ToolStripMenuItem";
+            transceiverReceiver2ToolStripMenuItem.Size = new Size(197, 22);
+            transceiverReceiver2ToolStripMenuItem.Text = "Transceiver/Receiver #2";
+            transceiverReceiver2ToolStripMenuItem.Click += transceiverReceiver2ToolStripMenuItem_Click;
+            // 
+            // offsetToolStripMenuItem
+            // 
+            offsetToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { transceiverReceiver1ToolStripMenuItem1, transceiverReceiver2ToolStripMenuItem1 });
+            offsetToolStripMenuItem.Name = "offsetToolStripMenuItem";
+            offsetToolStripMenuItem.Size = new Size(51, 20);
+            offsetToolStripMenuItem.Text = "Offset";
+            // 
+            // transceiverReceiver1ToolStripMenuItem1
+            // 
+            transceiverReceiver1ToolStripMenuItem1.Name = "transceiverReceiver1ToolStripMenuItem1";
+            transceiverReceiver1ToolStripMenuItem1.Size = new Size(197, 22);
+            transceiverReceiver1ToolStripMenuItem1.Text = "Transceiver/Receiver #1";
+            transceiverReceiver1ToolStripMenuItem1.Click += transceiverReceiver1ToolStripMenuItem1_Click;
+            // 
+            // transceiverReceiver2ToolStripMenuItem1
+            // 
+            transceiverReceiver2ToolStripMenuItem1.Name = "transceiverReceiver2ToolStripMenuItem1";
+            transceiverReceiver2ToolStripMenuItem1.Size = new Size(197, 22);
+            transceiverReceiver2ToolStripMenuItem1.Text = "Transceiver/Receiver #2";
+            transceiverReceiver2ToolStripMenuItem1.Click += transceiverReceiver2ToolStripMenuItem1_Click;
             // 
             // groupBox1
             // 
@@ -889,18 +939,29 @@
             // 
             // groupBox11
             // 
+            groupBox11.Controls.Add(button10);
             groupBox11.Controls.Add(groupBox13);
             groupBox11.Controls.Add(label68);
             groupBox11.Controls.Add(button8);
             groupBox11.Controls.Add(button4);
             groupBox11.Controls.Add(button6);
             groupBox11.Controls.Add(label66);
-            groupBox11.Location = new Point(257, 190);
+            groupBox11.Location = new Point(257, 175);
             groupBox11.Name = "groupBox11";
-            groupBox11.Size = new Size(270, 146);
+            groupBox11.Size = new Size(270, 134);
             groupBox11.TabIndex = 2;
             groupBox11.TabStop = false;
             groupBox11.Text = "Transceiver/Receiver #2";
+            // 
+            // button10
+            // 
+            button10.Location = new Point(87, 104);
+            button10.Name = "button10";
+            button10.Size = new Size(75, 23);
+            button10.TabIndex = 10;
+            button10.Text = "Set Offset";
+            button10.UseVisualStyleBackColor = true;
+            button10.Click += button10_Click;
             // 
             // groupBox13
             // 
@@ -908,9 +969,9 @@
             groupBox13.Controls.Add(label75);
             groupBox13.Controls.Add(label74);
             groupBox13.Controls.Add(label73);
-            groupBox13.Location = new Point(174, 40);
+            groupBox13.Location = new Point(174, 29);
             groupBox13.Name = "groupBox13";
-            groupBox13.Size = new Size(90, 89);
+            groupBox13.Size = new Size(90, 98);
             groupBox13.TabIndex = 9;
             groupBox13.TabStop = false;
             groupBox13.Text = "Status";
@@ -918,7 +979,7 @@
             // label76
             // 
             label76.AutoSize = true;
-            label76.Location = new Point(6, 68);
+            label76.Location = new Point(6, 79);
             label76.Name = "label76";
             label76.Size = new Size(44, 15);
             label76.TabIndex = 3;
@@ -927,7 +988,7 @@
             // label75
             // 
             label75.AutoSize = true;
-            label75.Location = new Point(6, 51);
+            label75.Location = new Point(6, 59);
             label75.Name = "label75";
             label75.Size = new Size(44, 15);
             label75.TabIndex = 2;
@@ -936,7 +997,7 @@
             // label74
             // 
             label74.AutoSize = true;
-            label74.Location = new Point(6, 34);
+            label74.Location = new Point(6, 19);
             label74.Name = "label74";
             label74.Size = new Size(44, 15);
             label74.TabIndex = 1;
@@ -945,7 +1006,7 @@
             // label73
             // 
             label73.AutoSize = true;
-            label73.Location = new Point(6, 17);
+            label73.Location = new Point(6, 39);
             label73.Name = "label73";
             label73.Size = new Size(44, 15);
             label73.TabIndex = 0;
@@ -963,7 +1024,7 @@
             // 
             // button8
             // 
-            button8.Location = new Point(6, 106);
+            button8.Location = new Point(8, 104);
             button8.Name = "button8";
             button8.Size = new Size(75, 23);
             button8.TabIndex = 7;
@@ -993,6 +1054,7 @@
             // 
             // groupBox10
             // 
+            groupBox10.Controls.Add(button9);
             groupBox10.Controls.Add(groupBox9);
             groupBox10.Controls.Add(button7);
             groupBox10.Controls.Add(label67);
@@ -1002,10 +1064,20 @@
             groupBox10.Controls.Add(button3);
             groupBox10.Location = new Point(257, 35);
             groupBox10.Name = "groupBox10";
-            groupBox10.Size = new Size(270, 146);
+            groupBox10.Size = new Size(270, 134);
             groupBox10.TabIndex = 1;
             groupBox10.TabStop = false;
             groupBox10.Text = "Transceiver/Receiver #1";
+            // 
+            // button9
+            // 
+            button9.Location = new Point(87, 105);
+            button9.Name = "button9";
+            button9.Size = new Size(75, 23);
+            button9.TabIndex = 9;
+            button9.Text = "Set Offset";
+            button9.UseVisualStyleBackColor = true;
+            button9.Click += button9_Click;
             // 
             // groupBox9
             // 
@@ -1013,9 +1085,9 @@
             groupBox9.Controls.Add(label71);
             groupBox9.Controls.Add(label70);
             groupBox9.Controls.Add(label69);
-            groupBox9.Location = new Point(174, 41);
+            groupBox9.Location = new Point(174, 30);
             groupBox9.Name = "groupBox9";
-            groupBox9.Size = new Size(90, 88);
+            groupBox9.Size = new Size(90, 98);
             groupBox9.TabIndex = 8;
             groupBox9.TabStop = false;
             groupBox9.Text = "Status";
@@ -1023,7 +1095,7 @@
             // label72
             // 
             label72.AutoSize = true;
-            label72.Location = new Point(6, 68);
+            label72.Location = new Point(6, 79);
             label72.Name = "label72";
             label72.Size = new Size(44, 15);
             label72.TabIndex = 3;
@@ -1032,7 +1104,7 @@
             // label71
             // 
             label71.AutoSize = true;
-            label71.Location = new Point(6, 51);
+            label71.Location = new Point(6, 59);
             label71.Name = "label71";
             label71.Size = new Size(44, 15);
             label71.TabIndex = 2;
@@ -1041,7 +1113,7 @@
             // label70
             // 
             label70.AutoSize = true;
-            label70.Location = new Point(6, 34);
+            label70.Location = new Point(6, 19);
             label70.Name = "label70";
             label70.Size = new Size(44, 15);
             label70.TabIndex = 1;
@@ -1051,7 +1123,7 @@
             // 
             label69.AutoSize = true;
             label69.Font = new Font("Segoe UI", 9F);
-            label69.Location = new Point(6, 17);
+            label69.Location = new Point(6, 39);
             label69.Name = "label69";
             label69.Size = new Size(44, 15);
             label69.TabIndex = 0;
@@ -1059,7 +1131,7 @@
             // 
             // button7
             // 
-            button7.Location = new Point(8, 106);
+            button7.Location = new Point(8, 105);
             button7.Name = "button7";
             button7.Size = new Size(75, 23);
             button7.TabIndex = 7;
@@ -1119,7 +1191,7 @@
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "MainForm";
-            Text = "CatSync v0.0.8-alpha";
+            Text = "CatSync v0.0.1-beta";
             FormClosing += MainForm_FormClosing;
             Load += MainForm_Load;
             Shown += MainForm_Shown;
@@ -1249,5 +1321,13 @@
         private Label label75;
         private Label label74;
         private Label label73;
+        private ToolStripMenuItem configToolStripMenuItem;
+        private ToolStripMenuItem transceiverReceiver1ToolStripMenuItem;
+        private ToolStripMenuItem transceiverReceiver2ToolStripMenuItem;
+        private ToolStripMenuItem offsetToolStripMenuItem;
+        private ToolStripMenuItem transceiverReceiver1ToolStripMenuItem1;
+        private Button button10;
+        private Button button9;
+        private ToolStripMenuItem transceiverReceiver2ToolStripMenuItem1;
     }
 }

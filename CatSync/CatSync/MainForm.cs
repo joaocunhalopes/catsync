@@ -1,5 +1,3 @@
-using Xcvr;
-
 namespace CatSync
 {
     public partial class MainForm : Form
@@ -33,9 +31,9 @@ namespace CatSync
                 this.FormBorderStyle = FormBorderStyle.FixedSingle; // Lock form resizing.
                 this.MaximizeBox = false; // Optional: Disable the maximize button.
 
-                Xcvr.Control.Config();
+                Xcvr.Control.ReadXcvrsConfig();
             }
-            catch (ConfigException ex)
+            catch (Xcvr.ConfigException ex)
             {
                 MessageBox.Show($"{ex.Message}", "CatSync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(1);
@@ -44,8 +42,8 @@ namespace CatSync
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            SetXcvr0Labels();
-            SetXcvr1Labels();
+            SetXcvr0Labels(Xcvr.Control.Xcvrs[0]);
+            SetXcvr1Labels(Xcvr.Control.Xcvrs[1]);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -158,6 +156,18 @@ namespace CatSync
             }
         }
 
+        private void button9_Click(object sender, EventArgs e)
+        {
+            Xcvr1OffsetForm offsetForm = new Xcvr1OffsetForm();
+            offsetForm.ShowDialog();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            Xcvr2OffsetForm offsetForm = new Xcvr2OffsetForm();
+            offsetForm.ShowDialog();
+        }
+
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _syncXcvrsCancellationTokenSource.Cancel();
@@ -169,64 +179,88 @@ namespace CatSync
             Environment.Exit(1);
         }
 
+        private void transceiverReceiver1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Xcvr1ConfigForm configForm = new Xcvr1ConfigForm();
+            configForm.ShowDialog();
+        }
+
+        private void transceiverReceiver2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Xcvr2ConfigForm configForm = new Xcvr2ConfigForm();
+            configForm.ShowDialog();
+        }
+
+        private void transceiverReceiver1ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Xcvr1OffsetForm offsetForm = new Xcvr1OffsetForm();
+            offsetForm.ShowDialog();
+        }
+
+        private void transceiverReceiver2ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Xcvr2OffsetForm offsetForm = new Xcvr2OffsetForm();
+            offsetForm.ShowDialog();
+        }
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             _syncXcvrsCancellationTokenSource.Cancel();
             _setInformationCancellationTokenSource.Cancel();
         }
 
-        private void SetXcvr0Labels()
+        private void SetXcvr0Labels(Config.Xcvr xcvr)
         {
-            this.label17.Text = Xcvr.Control.Xcvrs[0].Manufacturer;
-            this.label18.Text = Xcvr.Control.Xcvrs[0].Model;
-            this.label19.Text = Xcvr.Control.Xcvrs[0].Protocol;
-            this.label20.Text = Xcvr.Control.Xcvrs[0].Latency + " ms";
+            this.label17.Text = xcvr.Manufacturer;
+            this.label18.Text = xcvr.Model;
+            this.label19.Text = xcvr.Protocol;
+            this.label20.Text = xcvr.Latency + " ms";
 
-            this.label21.Text = Xcvr.Control.Xcvrs[0].PortSettings.PortName;
-            this.label22.Text = Xcvr.Control.Xcvrs[0].PortSettings.BaudRate.ToString() + " bps";
-            this.label23.Text = Xcvr.Control.Xcvrs[0].PortSettings.Parity;
-            this.label24.Text = Xcvr.Control.Xcvrs[0].PortSettings.DataBits.ToString();
-            this.label25.Text = Xcvr.Control.Xcvrs[0].PortSettings.StopBits;
-            this.label26.Text = Xcvr.Control.Xcvrs[0].PortSettings.Handshake;
+            this.label21.Text = xcvr.PortSettings.PortName;
+            this.label22.Text = xcvr.PortSettings.BaudRate.ToString() + " bps";
+            this.label23.Text = xcvr.PortSettings.Parity;
+            this.label24.Text = xcvr.PortSettings.DataBits.ToString();
+            this.label25.Text = xcvr.PortSettings.StopBits;
+            this.label26.Text = xcvr.PortSettings.Handshake;
 
-            this.label27.Text = Xcvr.Control.Xcvrs[0].Frequency.ReadCommand;
-            this.label28.Text = Xcvr.Control.Xcvrs[0].Frequency.ReadCommandPrefix;
-            this.label29.Text = Xcvr.Control.Xcvrs[0].Frequency.ReadCommandSufix;
-            this.label31.Text = Xcvr.Control.Xcvrs[0].Frequency.SetCommandPrefix;
-            this.label32.Text = Xcvr.Control.Xcvrs[0].Frequency.SetCommandSufix;
+            this.label27.Text = xcvr.Frequency.ReadCommand;
+            this.label28.Text = xcvr.Frequency.ReadCommandPrefix;
+            this.label29.Text = xcvr.Frequency.ReadCommandSufix;
+            this.label31.Text = xcvr.Frequency.SetCommandPrefix;
+            this.label32.Text = xcvr.Frequency.SetCommandSufix;
         }
 
-        private void SetXcvr1Labels()
+        private void SetXcvr1Labels(Config.Xcvr xcvr)
         {
-            this.label60.Text = Xcvr.Control.Xcvrs[1].Manufacturer;
-            this.label59.Text = Xcvr.Control.Xcvrs[1].Model;
-            this.label58.Text = Xcvr.Control.Xcvrs[1].Protocol;
-            this.label57.Text = Xcvr.Control.Xcvrs[1].Latency + " ms";
+            this.label60.Text = xcvr.Manufacturer;
+            this.label59.Text = xcvr.Model;
+            this.label58.Text = xcvr.Protocol;
+            this.label57.Text = xcvr.Latency + " ms";
 
-            this.label50.Text = Xcvr.Control.Xcvrs[1].PortSettings.PortName;
-            this.label49.Text = Xcvr.Control.Xcvrs[1].PortSettings.BaudRate.ToString() + " bps";
-            this.label48.Text = Xcvr.Control.Xcvrs[1].PortSettings.Parity;
-            this.label47.Text = Xcvr.Control.Xcvrs[1].PortSettings.DataBits.ToString();
-            this.label46.Text = Xcvr.Control.Xcvrs[1].PortSettings.StopBits;
-            this.label45.Text = Xcvr.Control.Xcvrs[1].PortSettings.Handshake;
+            this.label50.Text = xcvr.PortSettings.PortName;
+            this.label49.Text = xcvr.PortSettings.BaudRate.ToString() + " bps";
+            this.label48.Text = xcvr.PortSettings.Parity;
+            this.label47.Text = xcvr.PortSettings.DataBits.ToString();
+            this.label46.Text = xcvr.PortSettings.StopBits;
+            this.label45.Text = xcvr.PortSettings.Handshake;
 
-            this.label38.Text = Xcvr.Control.Xcvrs[1].Frequency.ReadCommand;
-            this.label37.Text = Xcvr.Control.Xcvrs[1].Frequency.ReadCommandPrefix;
-            this.label36.Text = Xcvr.Control.Xcvrs[1].Frequency.ReadCommandSufix;
-            this.label34.Text = Xcvr.Control.Xcvrs[1].Frequency.SetCommandPrefix;
-            this.label33.Text = Xcvr.Control.Xcvrs[1].Frequency.SetCommandSufix;
+            this.label38.Text = xcvr.Frequency.ReadCommand;
+            this.label37.Text = xcvr.Frequency.ReadCommandPrefix;
+            this.label36.Text = xcvr.Frequency.ReadCommandSufix;
+            this.label34.Text = xcvr.Frequency.SetCommandPrefix;
+            this.label33.Text = xcvr.Frequency.SetCommandSufix;
         }
 
         private void OpenXcvrPort(int id)
         {
             try
             {
-                Xcvr.Control.OpenPort(Xcvr.Control.Xcvrs[id]);
+                Xcvr.Control.OpenXcvrPort(Xcvr.Control.Xcvrs[id]);
             }
-            catch (OpenPortException ex)
+            catch (Xcvr.OpenPortException ex)
             {
                 MessageBox.Show($"{ex.Message}", "CatSync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Xcvr.Control.ClosePort(Xcvr.Control.Xcvrs[id]);
+                Xcvr.Control.CloseXcvrPort(Xcvr.Control.Xcvrs[id]);
             }
         }
 
@@ -238,6 +272,9 @@ namespace CatSync
                 {
                     try
                     {
+                        SetXcvr0Labels(Xcvr.Control.Xcvrs[0]);
+                        SetXcvr1Labels(Xcvr.Control.Xcvrs[1]);
+
                         SetXcvrFrequencyInformation(0, this.label65, this.label67);
                         SetXcvrFrequencyInformation(1, this.label66, this.label68);
 
@@ -286,9 +323,9 @@ namespace CatSync
         {
             try
             {
-                Xcvr.Control.ClosePort(Xcvr.Control.Xcvrs[id]);
+                Xcvr.Control.CloseXcvrPort(Xcvr.Control.Xcvrs[id]);
             }
-            catch (OpenPortException ex)
+            catch (Xcvr.OpenPortException ex)
             {
                 MessageBox.Show($"{ex.Message}", "CatSync", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -298,28 +335,12 @@ namespace CatSync
         {
             try
             {
-                Xcvr.Control.DisposePort(Xcvr.Control.Xcvrs[id]);
+                Xcvr.Control.DisposeXcvrPort(Xcvr.Control.Xcvrs[id]);
             }
-            catch (OpenPortException ex)
+            catch (Xcvr.OpenPortException ex)
             {
                 MessageBox.Show($"{ex.Message}", "CatSync", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private static string FormatFrequencyWithDots(int frequency)
-        {
-            string formatedFrequency = frequency.ToString("#,0", System.Globalization.CultureInfo.InvariantCulture).Replace(",", ".");
-            int formatedFrequencyLenght = formatedFrequency.Length;
-            string frequencyUnit = "MHz";
-            if (formatedFrequencyLenght >= 5 && formatedFrequencyLenght <= 7)
-            {
-                frequencyUnit = "KHz";
-            }
-            else if (formatedFrequencyLenght >= 1 && formatedFrequencyLenght <= 3)
-            {
-                frequencyUnit = "Hz";
-            }
-            return ($"{formatedFrequency} {frequencyUnit}");
         }
 
         private void SetXcvrFrequencyInformation(int id, Label frequencyLabel, Label offsetLabel)
@@ -341,8 +362,8 @@ namespace CatSync
                 frequencyLabel.ForeColor = Color.Gray;
                 offsetLabel.ForeColor = Color.Gray;
             }
-            frequencyLabel.Text = FormatFrequencyWithDots(Xcvr.Control.Xcvrs[id].Frequency.Current);
-            offsetLabel.Text = FormatFrequencyWithDots(Xcvr.Control.Xcvrs[id].Frequency.Offset);
+            frequencyLabel.Text = Util.Formater.FormatFrequencyWithDots(Xcvr.Control.Xcvrs[id].Frequency.Current);
+            offsetLabel.Text = Util.Formater.FormatFrequencyWithDots(Xcvr.Control.Xcvrs[id].Frequency.Offset);
         }
 
         private void SetXcvrConnectButtonInformation(int id, Button connect, ref bool buttonDefault)

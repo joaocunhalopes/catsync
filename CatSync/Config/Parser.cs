@@ -4,12 +4,10 @@ namespace Config
 {
     internal static class Parser
     {
-        private const string XcvrRelativeFilePath = "Xcvrs\\Xcvrs.json";
-
-        internal static List<Xcvr> ParseJson()
+        internal static List<Xcvr> ParseXcvrs(string xcvrsRelativeFilePath)
         {
             string baseDirectory = AppContext.BaseDirectory;
-            string xcvrsFilePath = Path.Combine(baseDirectory, XcvrRelativeFilePath);
+            string xcvrsFilePath = Path.Combine(baseDirectory, xcvrsRelativeFilePath);
             string json = File.ReadAllText(xcvrsFilePath);
             XcvrsConfig? config = JsonSerializer.Deserialize<XcvrsConfig>(json);
 
@@ -35,6 +33,23 @@ namespace Config
                 Util.Log.Information($"Read Command: '{frequency.ReadCommand}', Read Command Prefix: '{frequency.ReadCommandPrefix}', Read Command Sufix: '{frequency.ReadCommandSufix}'");
                 Util.Log.Information($"Set Command Prefix: '{frequency.SetCommandPrefix}', Set Command Sufix: '{frequency.SetCommandSufix}'");
             }
+        }
+
+        internal static List<Xcvr> ParseXcvrsList(string xcvrsListRelativeFilePath)
+        {
+            string baseDirectory = AppContext.BaseDirectory;
+            string xcvrsListFilePath = Path.Combine(baseDirectory, xcvrsListRelativeFilePath);
+            string json = File.ReadAllText(xcvrsListFilePath);
+            XcvrsConfig? config = JsonSerializer.Deserialize<XcvrsConfig>(json);
+
+            if (config == null)
+            {
+                string message = $"Deserialization of {xcvrsListFilePath} resulted in a null object.";
+                Util.Log.Error(message);
+                throw new ArgumentNullException(nameof(config), message);
+            }
+
+            return config.Xcvrs;
         }
     }
 }

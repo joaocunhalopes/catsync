@@ -1,12 +1,11 @@
-﻿using Config;
-using Serilog;
-using System.Numerics;
+﻿using Serilog;
 
 namespace Xcvr
 {
     public static class Control
     {
         private volatile static List<Config.Xcvr> _xcvrs = new();
+        private volatile static List<Config.Xcvr> _xcvrsList = new();
 
         public static List<Config.Xcvr> Xcvrs
         {
@@ -14,11 +13,17 @@ namespace Xcvr
             private set { _xcvrs = value; }
         }
 
-        public static void Config()
+        public static List<Config.Xcvr> XcvrsList
+        {
+            get { return _xcvrsList; }
+            private set { _xcvrsList = value; }
+        }
+
+        public static void ReadXcvrsConfig()
         {
             try
             {
-                Xcvrs = global::Config.Control.ReadConfig();
+                Xcvrs = Config.Control.ReadXcvrsConfig();
             }
             catch (Exception ex)
             {
@@ -28,7 +33,21 @@ namespace Xcvr
             }
         }
 
-        public static void OpenPort(Config.Xcvr xcvr)
+        public static void ReadXcvrsListConfig()
+        {
+            try
+            {
+                XcvrsList = Config.Control.ReadXcvrsListConfig();
+            }
+            catch (Exception ex)
+            {
+                Log.Warning(ex.Message);
+                Log.Error($"{ex.StackTrace}");
+                throw new ConfigException($"Error configuring application.");
+            }
+        }
+
+        public static void OpenXcvrPort(Config.Xcvr xcvr)
         {
             try
             {
@@ -74,7 +93,7 @@ namespace Xcvr
                 {
                     Log.Warning(ex.Message);
                     Log.Error($"{ex.StackTrace}");
-                    ClosePort(xcvrMaster);
+                    CloseXcvrPort(xcvrMaster);
                     throw new ReadFrequencyException($"Could not read frequency for {xcvrMaster.Manufacturer} {xcvrMaster.Model}.");
                 }
             }
@@ -99,7 +118,7 @@ namespace Xcvr
                     {
                         Log.Warning(ex.Message);
                         Log.Error($"{ex.StackTrace}");
-                        ClosePort(xcvrSlave);
+                        CloseXcvrPort(xcvrSlave);
                         throw new SetFrequencyException($"Could not set frequency for {xcvrSlave.Manufacturer} {xcvrSlave.Model}.");
                     }
                 }
@@ -119,13 +138,13 @@ namespace Xcvr
                 {
                     Log.Warning(ex.Message);
                     Log.Error($"{ex.StackTrace}");
-                    ClosePort(xcvrSlave);
+                    CloseXcvrPort(xcvrSlave);
                     throw new ReadFrequencyException($"Could not read frequency for {xcvrSlave.Manufacturer} {xcvrSlave.Model}.");
                 }
             }
         }
 
-        public static void ClosePort(Config.Xcvr xcvr)
+        public static void CloseXcvrPort(Config.Xcvr xcvr)
         {
             try
             {
@@ -139,7 +158,7 @@ namespace Xcvr
             }
         }
 
-        public static void DisposePort(Config.Xcvr xcvr)
+        public static void DisposeXcvrPort(Config.Xcvr xcvr)
         {
             try
             {

@@ -13,4 +13,10 @@
     <ProjectReference Include="..\Xcvr\Xcvr.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Xcvr2OffsetForm.cs" />
+    <Compile Update="Xcvr1OffsetForm.cs" />
+    <Compile Update="Xcvr2ConfigForm.cs" />
+  </ItemGroup>
+
 </Project>

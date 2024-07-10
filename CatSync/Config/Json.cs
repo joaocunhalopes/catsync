@@ -4,6 +4,11 @@ namespace Config
 {
     public class XcvrsConfig
     {
+        public XcvrsConfig(List<Xcvr> xcvrs)
+        { 
+            Xcvrs = xcvrs;
+        }
+
         public List<Xcvr> Xcvrs { get; set; } = new();
     }
 
@@ -14,6 +19,9 @@ namespace Config
         public string Manufacturer { get; set; } = string.Empty;
 
         public string Model { get; set; } = string.Empty;
+
+        [JsonIgnore]
+        public string DisplayName => $"{Manufacturer} {Model}";
 
         public string Protocol { get; set; } = string.Empty;
 

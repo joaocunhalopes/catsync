@@ -1,0 +1,119 @@
+{
+  "Xcvrs": [
+    {
+      "Id": 1,
+      "Manufacturer": "Icom",
+      "Model": "IC-706MKIIG",
+      "Protocol": "CIV",
+      "Latency": 300,
+      "PortSettings": {
+        "PortName": "COM1",
+        "BaudRate": 9600,
+        "Parity": "None",
+        "DataBits": 8,
+        "StopBits": "One",
+        "Handshake": "None"
+      },
+      "Frequency": {
+        "Offset": 0,
+        "ReadCommand": "FEFE58E003FD",
+        "ReadCommandPrefix": "FEFEE05803",
+        "ReadCommandSufix": "FD",
+        "SetCommandPrefix": "FEFE58E005",
+        "SetCommandSufix": "FD"
+      }
+    },
+    {
+      "Id": 2,
+      "Manufacturer": "Icom",
+      "Model": "IC-751A",
+      "Protocol": "CIV",
+      "Latency": 300,
+      "PortSettings": {
+        "PortName": "COM1",
+        "BaudRate": 9600,
+        "Parity": "None",
+        "DataBits": 8,
+        "StopBits": "One",
+        "Handshake": "None"
+      },
+      "Frequency": {
+        "Offset": 0,
+        "ReadCommand": "FEFE1CE003FD",
+        "ReadCommandPrefix": "FEFEE01C03",
+        "ReadCommandSufix": "FD",
+        "SetCommandPrefix": "FEFE1CE005",
+        "SetCommandSufix": "FD"
+      }
+    },
+    {
+      "Id": 3,
+      "Manufacturer": "Kenwood",
+      "Model": "TS-590S",
+      "Protocol": "KSI",
+      "Latency": 100,
+      "PortSettings": {
+        "PortName": "COM1",
+        "BaudRate": 115200,
+        "Parity": "None",
+        "DataBits": 8,
+        "StopBits": "One",
+        "Handshake": "RequestToSend"
+      },
+      "Frequency": {
+        "Offset": 0,
+        "ReadCommand": "FA;",
+        "ReadCommandPrefix": "FA",
+        "ReadCommandSufix": ";",
+        "SetCommandPrefix": "FA",
+        "SetCommandSufix": ";"
+      }
+    },
+    {
+      "Id": 4,
+      "Manufacturer": "Kenwood",
+      "Model": "TS-590SG",
+      "Protocol": "KSI",
+      "Latency": 100,
+      "PortSettings": {
+        "PortName": "COM1",
+        "BaudRate": 115200,
+        "Parity": "None",
+        "DataBits": 8,
+        "StopBits": "One",
+        "Handshake": "RequestToSend"
+      },
+      "Frequency": {
+        "Offset": 0,
+        "ReadCommand": "FA;",
+        "ReadCommandPrefix": "FA",
+        "ReadCommandSufix": ";",
+        "SetCommandPrefix": "FA",
+        "SetCommandSufix": ";"
+      }
+    },
+    {
+      "Id": 5,
+      "Manufacturer": "Xiegu",
+      "Model": "X6100",
+      "Protocol": "CIV",
+      "Latency": 100,
+      "PortSettings": {
+        "PortName": "COM1",
+        "BaudRate": 19200,
+        "Parity": "None",
+        "DataBits": 8,
+        "StopBits": "One",
+        "Handshake": "None"
+      },
+      "Frequency": {
+        "Offset": 0,
+        "ReadCommand": "FEFEA4E003FD",
+        "ReadCommandPrefix": "FEFEE0A403",
+        "ReadCommandSufix": "FD",
+        "SetCommandPrefix": "FEFEA4E005",
+        "SetCommandSufix": "FD"
+      }
+    }
+  ]
+}

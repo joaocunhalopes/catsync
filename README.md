@@ -18,7 +18,7 @@ If there's enough interest, support for Elecraft K3 protocol can easly be added.
 
 Here, you can watch a quick video of CatSync being tested with a Kenwood TS-590S Transceiver and a Xiegu X6100 Transceiver:
 
-[![CatSync v0.0.2-alpha Demo](https://img.youtube.com/vi/1GEGxY4AOv4/sddefault.jpg)](https://www.youtube.com/watch?v=1GEGxY4AOv4)
+[![CatSync v0.0.2-alpha Demo](https://img.youtube.com/vi/IhloyOedxI8/sddefault.jpg)](https://www.youtube.com/watch?v=IhloyOedxI8)
 
 ## Documentation
 
